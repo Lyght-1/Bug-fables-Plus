@@ -1,0 +1,787 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{04EF2FE4-EDA3-455B-A9F7-CDF68FE2BB37}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BFPlus</RootNamespace>
+    <AssemblyName>BFPlus</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>C:\SteamLibrary\steamapps\common\Bug Fables\BepInEx\plugins\BFPlus\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0252</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>Libs\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp-publicized">
+      <HintPath>Libs\Assembly-CSharp-publicized.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="BepInEx, Version=5.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\BepInEx.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="BepInEx.Harmony, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\BepInEx.Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil, Version=0.11.5.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>packages\Mono.Cecil.0.11.5\lib\net40\Mono.Cecil.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb, Version=0.11.5.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>packages\Mono.Cecil.0.11.5\lib\net40\Mono.Cecil.Mdb.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb, Version=0.11.5.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>packages\Mono.Cecil.0.11.5\lib\net40\Mono.Cecil.Pdb.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks, Version=0.11.5.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>packages\Mono.Cecil.0.11.5\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MonoMod.Backports, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MonoMod.Backports.1.1.2\lib\net452\MonoMod.Backports.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MonoMod.Core, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MonoMod.Core.1.2.2\lib\net452\MonoMod.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MonoMod.Iced, Version=1.21.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MonoMod.Core.1.2.2\lib\net452\MonoMod.Iced.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MonoMod.ILHelpers, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MonoMod.ILHelpers.1.1.0\lib\net452\MonoMod.ILHelpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MonoMod.RuntimeDetour, Version=25.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MonoMod.RuntimeDetour.25.2.2\lib\net452\MonoMod.RuntimeDetour.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MonoMod.Utils, Version=25.0.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MonoMod.Utils.25.0.8\lib\net452\MonoMod.Utils.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AccessibilityModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.AccessibilityModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.AIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.AnimationModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ARModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.ARModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.AssetBundleModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.AudioModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.BaselibModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.BaselibModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ClothModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.ClothModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterInputModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.ClusterInputModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterRendererModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.ClusterRendererModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CrashReportingModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.CrashReportingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.DirectorModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.DirectorModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.FileSystemHttpModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.FileSystemHttpModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.GameCenterModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.GameCenterModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.GridModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.GridModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.HotReloadModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.HotReloadModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.InputModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.JSONSerializeModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.LocalizationModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.LocalizationModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.ParticleSystemModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.PerformanceReportingModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.PerformanceReportingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.Physics2DModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.Physics2DModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.PhysicsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ProfilerModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.ProfilerModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ScreenCaptureModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.ScreenCaptureModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.SharedInternalsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.SharedInternalsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteMaskModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.SpriteMaskModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteShapeModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.SpriteShapeModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.StreamingModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.StreamingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.StyleSheetsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.StyleSheetsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.SubstanceModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.SubstanceModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.TerrainModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainPhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.TerrainPhysicsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.TextCoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TilemapModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.TilemapModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TimelineModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.TimelineModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TLSModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.TLSModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.UIElementsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.UIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UmbraModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.UmbraModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UNETModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.UNETModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityAnalyticsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.UnityAnalyticsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityConnectModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.UnityConnectModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityTestProtocolModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.UnityTestProtocolModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAudioModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.UnityWebRequestModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestTextureModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestWWWModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.VehiclesModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.VehiclesModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.VFXModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.VFXModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.VideoModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.VideoModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.VRModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.VRModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.WindModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.WindModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.XRModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\UnityEngine.XRModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extensions\BadmintonObj.cs" />
+    <Compile Include="Extensions\BatteryShroomCopter.cs" />
+    <Compile Include="Extensions\BattleControl_Ext.cs" />
+    <Compile Include="Extensions\CardGame_Ext.cs" />
+    <Compile Include="Extensions\DartTarget.cs" />
+    <Compile Include="Extensions\DelayedProjExtra.cs" />
+    <Compile Include="Extensions\DynamoSporeLight.cs" />
+    <Compile Include="Extensions\ElecHazard.cs" />
+    <Compile Include="Extensions\EnemyAI\BatteryShroomAI.cs" />
+    <Compile Include="Extensions\EnemyAI\BelosslowAI.cs" />
+    <Compile Include="Extensions\EnemyAI\CeliaAI.cs" />
+    <Compile Include="Extensions\EnemyAI\DarkKabbuAI.cs" />
+    <Compile Include="Extensions\EnemyAI\DarkLeifAI.cs" />
+    <Compile Include="Extensions\EnemyAI\DarkTeamSnakemouth.cs" />
+    <Compile Include="Extensions\EnemyAI\DarkViAI.cs" />
+    <Compile Include="Extensions\EnemyAI\DewlingAI.cs" />
+    <Compile Include="Extensions\EnemyAI\DullScorpAI.cs" />
+    <Compile Include="Extensions\EnemyAI\DynamoSporeAI.cs" />
+    <Compile Include="Extensions\EnemyAI\EnemyAI.cs" />
+    <Compile Include="Extensions\EnemyAI\FireAntAI.cs" />
+    <Compile Include="Extensions\EnemyAI\FirePopperAI.cs" />
+    <Compile Include="Extensions\EnemyAI\IronSuitAI.cs" />
+    <Compile Include="Extensions\EnemyAI\JesterAI.cs" />
+    <Compile Include="Extensions\EnemyAI\LeafbugShamanAI.cs" />
+    <Compile Include="Extensions\EnemyAI\LeviAI.cs" />
+    <Compile Include="Extensions\EnemyAI\LongLegsSpiderAI.cs" />
+    <Compile Include="Extensions\EnemyAI\MarsAI.cs" />
+    <Compile Include="Extensions\EnemyAI\MarsBudAI.cs" />
+    <Compile Include="Extensions\EnemyAI\MarsSproutAI.cs" />
+    <Compile Include="Extensions\EnemyAI\MothmiteAI.cs" />
+    <Compile Include="Extensions\EnemyAI\PattonAI.cs" />
+    <Compile Include="Extensions\EnemyAI\TermiteKnightAI.cs" />
+    <Compile Include="Extensions\EnemyAI\WormAI.cs" />
+    <Compile Include="Extensions\EnemyItemData.cs" />
+    <Compile Include="Extensions\Entity_Ext.cs" />
+    <Compile Include="Extensions\EventControl_Ext.cs" />
+    <Compile Include="Extensions\Events\CheckMedalEvent.cs" />
+    <Compile Include="Extensions\Events\ConflictingVisionEvent.cs" />
+    <Compile Include="Extensions\Events\DarkTeamSnakemouthEvents\DarkTeamSnakemouthFight.cs" />
+    <Compile Include="Extensions\Events\DarkTeamSnakemouthEvents\DarkTeamSnakemouthSearch.cs" />
+    <Compile Include="Extensions\Events\DarkTeamSnakemouthEvents\DarkTeamSnakemouthZaryant.cs" />
+    <Compile Include="Extensions\Events\EventManager.cs" />
+    <Compile Include="Extensions\Events\GourmetRaceEvents\EndGourmetRaceEvent.cs" />
+    <Compile Include="Extensions\Events\GourmetRaceEvents\StartGourmetRaceEvent.cs" />
+    <Compile Include="Extensions\Events\HerFavoriteSweetEvent.cs" />
+    <Compile Include="Extensions\Events\HoaxeIntermissionEvents\HoaxeIntermission1Event.cs" />
+    <Compile Include="Extensions\Events\HoaxeIntermissionEvents\HoaxeIntermission2Event.cs" />
+    <Compile Include="Extensions\Events\HoaxeIntermissionEvents\HoaxeIntermission3Event.cs" />
+    <Compile Include="Extensions\Events\HoaxeIntermissionEvents\HoaxeIntermission4Event.cs" />
+    <Compile Include="Extensions\Events\HoaxeIntermissionEvents\HoaxeIntermission5Event.cs" />
+    <Compile Include="Extensions\Events\HoaxeIntermissionEvents\HoaxeIntermission6Event.cs" />
+    <Compile Include="Extensions\Events\HoaxeIntermissionEvents\HoaxeIntermission7Event.cs" />
+    <Compile Include="Extensions\Events\LeafbugsEvent\LeafbugCookingEvent.cs" />
+    <Compile Include="Extensions\Events\LeafbugsEvent\LeafbugShamanFightEvent.cs" />
+    <Compile Include="Extensions\Events\LeafbugsEvent\LeafbugVillageLiftEvent.cs" />
+    <Compile Include="Extensions\Events\LeifFungalLeechEvent.cs" />
+    <Compile Include="Extensions\Events\NewBossesEvents\IronTowerBossEvent.cs" />
+    <Compile Include="Extensions\Events\NewBossesEvents\PlayroomBossEvent.cs" />
+    <Compile Include="Extensions\Events\NewDungeonsEvents\AncientTowerWindSwitchEvent.cs" />
+    <Compile Include="Extensions\Events\NewDungeonsEvents\GiantLairPlayroomEvents\PlayroomRaceEndEvent.cs" />
+    <Compile Include="Extensions\Events\NewDungeonsEvents\GiantLairPlayroomEvents\PlayroomRaceStartEvent.cs" />
+    <Compile Include="Extensions\Events\NewDungeonsEvents\GiantLairPlayroomEvents\PlayroomTrainEvent.cs" />
+    <Compile Include="Extensions\Events\NewDungeonsEvents\GiantLairPlayroomEvents\ToyTruckEvent.cs" />
+    <Compile Include="Extensions\Events\PitEvents\CollectMagicPouchEvent.cs" />
+    <Compile Include="Extensions\GourmetRace.cs" />
+    <Compile Include="Extensions\Events\LeviCeliaFightEvent.cs" />
+    <Compile Include="Extensions\Events\MusicPlayerEvent.cs" />
+    <Compile Include="Extensions\Events\NewBossesEvents\DeepCaveBossEvent.cs" />
+    <Compile Include="Extensions\Events\NewBossesEvents\PowerPlantBossEvent.cs" />
+    <Compile Include="Extensions\Events\NewBossesEvents\SandCastleDepthsBossEvent.cs" />
+    <Compile Include="Extensions\Events\NewBossesEvents\StartBossFightEvent.cs" />
+    <Compile Include="Extensions\Events\NewDungeonsEvents\DeepCaveVineDoorEvent.cs" />
+    <Compile Include="Extensions\Events\NewDungeonsEvents\PowerPlantSwitchDoorEvent.cs" />
+    <Compile Include="Extensions\Events\NewDungeonsEvents\SandCastleDepthsIcePuzzleEvent.cs" />
+    <Compile Include="Extensions\Events\PitEvents\LeavePitBossRoomEvent.cs" />
+    <Compile Include="Extensions\Events\PitEvents\LeavePitEvent.cs" />
+    <Compile Include="Extensions\Events\PitEvents\MoverEvent.cs" />
+    <Compile Include="Extensions\Events\PitEvents\PitEnemyDeadEvent.cs" />
+    <Compile Include="Extensions\Events\PitEvents\PitFinalBossEvent.cs" />
+    <Compile Include="Extensions\Events\PitEvents\PitNextFloorEvent.cs" />
+    <Compile Include="Extensions\Events\PitEvents\PitStartEvent.cs" />
+    <Compile Include="Extensions\Events\SeedlingMinigameEvents\EndSeedlingGameEvent.cs" />
+    <Compile Include="Extensions\Events\SeedlingMinigameEvents\StartSeedlingGameEvent.cs" />
+    <Compile Include="Extensions\Events\TanjyFightEvent.cs" />
+    <Compile Include="Extensions\GearPlatform.cs" />
+    <Compile Include="Extensions\IcePlatTrigger.cs" />
+    <Compile Include="Extensions\IronSuit.cs" />
+    <Compile Include="Extensions\LightningManager.cs" />
+    <Compile Include="Extensions\MainManager_Ext.cs" />
+    <Compile Include="Extensions\MainMenuBackground\AreaData.cs" />
+    <Compile Include="Extensions\MapControl_Ext.cs" />
+    <Compile Include="Extensions\Maps\AbandonedTower\AbandonedTower1Map.cs" />
+    <Compile Include="Extensions\Maps\AbandonedTower\AbandonedTower2Map.cs" />
+    <Compile Include="Extensions\Maps\AbandonedTower\AbandonedTower3Map.cs" />
+    <Compile Include="Extensions\Maps\AbandonedTower\AbandonedTowerBossMap.cs" />
+    <Compile Include="Extensions\Maps\AbandonedTower\AbandonedTowerCardsMap.cs" />
+    <Compile Include="Extensions\Maps\AbandonedTower\AbandonedTowerMap.cs" />
+    <Compile Include="Extensions\Maps\AbandonedTower\AbandonedTowerOutsideMap.cs" />
+    <Compile Include="Extensions\Maps\AntPalaceTrainingRoomMap.cs" />
+    <Compile Include="Extensions\Maps\BeehiveMinigameMap.cs" />
+    <Compile Include="Extensions\Maps\CustomMap.cs" />
+    <Compile Include="Extensions\Maps\DeepCave\DeepCave1Map.cs" />
+    <Compile Include="Extensions\Maps\DeepCave\DeepCave2Map.cs" />
+    <Compile Include="Extensions\Maps\DeepCave\DeepCaveBossMap.cs" />
+    <Compile Include="Extensions\Maps\DeepCave\DeepCaveEntranceMap.cs" />
+    <Compile Include="Extensions\Maps\DeepCave\DeepCaveMap.cs" />
+    <Compile Include="Extensions\Maps\GiantLairPlayroom\GiantLairPlayroom.cs" />
+    <Compile Include="Extensions\Maps\GiantLairPlayroom\GiantLairPlayroom1Map.cs" />
+    <Compile Include="Extensions\Maps\GiantLairPlayroom\GiantLairPlayroom2Map.cs" />
+    <Compile Include="Extensions\Maps\GiantLairPlayroom\GiantLairPlayroom3Map.cs" />
+    <Compile Include="Extensions\Maps\GiantLairPlayroom\GiantLairPlayroomBossMap.cs" />
+    <Compile Include="Extensions\Maps\LeafbugShamanHutMap.cs" />
+    <Compile Include="Extensions\Maps\LeafbugVillageMap.cs" />
+    <Compile Include="Extensions\Maps\NewPowerPlant\PowerPlantBigRoomMap.cs" />
+    <Compile Include="Extensions\Maps\NewPowerPlant\PowerPlantBossMap.cs" />
+    <Compile Include="Extensions\Maps\NewPowerPlant\PowerPlantElecPuzzle.cs" />
+    <Compile Include="Extensions\Maps\NewPowerPlant\PowerPlantExtraMap.cs" />
+    <Compile Include="Extensions\Maps\PitMaps\Pit100BaseRoomMap.cs" />
+    <Compile Include="Extensions\Maps\PitMaps\Pit100RewardMap.cs" />
+    <Compile Include="Extensions\Maps\PitMaps\PitBossRoomMap.cs" />
+    <Compile Include="Extensions\Maps\SandCastleDepths\SandCastleDepths.cs" />
+    <Compile Include="Extensions\Maps\SandCastleDepths\SandCastleDepths1Map.cs" />
+    <Compile Include="Extensions\Maps\SandCastleDepths\SandCastleDepthsBossMap.cs" />
+    <Compile Include="Extensions\Maps\SandCastleDepths\SandCastleDepthsIcePuzzleMap.cs" />
+    <Compile Include="Extensions\Maps\SandCastleDepths\SandCastleDepthsMainMap.cs" />
+    <Compile Include="Extensions\Maps\SandCastleDepths\SandCastleDepthsWallMap.cs" />
+    <Compile Include="Extensions\Maps\SeedlingMinigameMap.cs" />
+    <Compile Include="Extensions\ItemTree.cs" />
+    <Compile Include="Extensions\NPCControl_Ext.cs" />
+    <Compile Include="Extensions\PauseMenu_Ext.cs" />
+    <Compile Include="Extensions\Pit\PitData.cs" />
+    <Compile Include="Extensions\RockLimit.cs" />
+    <Compile Include="Extensions\SeedlingMinigame.cs" />
+    <Compile Include="Extensions\Stylish\KabbuStylish.cs" />
+    <Compile Include="Extensions\Stylish\LeifStylish.cs" />
+    <Compile Include="Extensions\Stylish\IStylish.cs" />
+    <Compile Include="Extensions\Stylish\TeamStylish.cs" />
+    <Compile Include="Extensions\Stylish\ViStylish.cs" />
+    <Compile Include="Extensions\TrainingNPC.cs" />
+    <Compile Include="Extensions\Utils.cs" />
+    <Compile Include="Patches\BattleControl.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\AddExperiencePatches\PatchExp.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\AddExperiencePatches\PatchLevelCap.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\AddExperiencePatches\PatchWinJingleCheck.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\AdvanceMainTurnPatches\PatchAreaDamageDelProj.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\AdvanceMainTurnPatches\PatchEndOfTurnChecks.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\AdvanceMainTurnPatches\PatchMaxCharge.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchCatalystInk.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchCheckCryostatis.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchEatenCondition.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchHeatingUp.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchPoisonDMG.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\AIAttackPatches\PatchAntLieutenantCamera.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\AIAttackPatches\PatchCheckNewAI.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\CalculateBaseDamagePatches\PatchSturdyDef.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\CheckDeadPatches\PatchCotUnknownCheck.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\CheckDeadPatches\PatchExtraEnemiesBug.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\CheckDeadPatches\PatchInkBlotCheck.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\AddDelayedConditionRes.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\CheckDelayedConditionPlayer.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\DoActionPrefix.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\EnemyPatches\BanditPatches.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\EnemyPatches\ThiefPatches.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\EnemyPatches\WaspScoutPatches.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\EnemyPatches\ZommothPatches.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\PatchFrigidCoffinFreeze.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\YieldUseCharmHP.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\EventDialoguePatches\PatchTidalWyrmDeathEvent.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\EventDialoguePatches\PatchWaspKingDeathEvent.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\GetChoiceInput\PatchDoubleDip.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\GetChoiceInput\PatchHoloSkillCheck.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\GetChoiceInput\PatchInvisibleInk.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlCheckEvent.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlInvulnerable.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlRelay.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlUpdate.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\PatchClearBombEffect.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\PatchClearStatus.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\PatchCounterAnimation.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\PatchDoDamage.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\PatchReturnToOverworld.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\PatchSetMaxOptions.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\PatchShowDamageCounter.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\CalculateBaseDamagePatches\PatchChargeAttack.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\CalculateBaseDamagePatches\PatchFrostbiteDamage.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\CalculateBaseDamagePatches\PatchGetRealDamage.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\CalculateBaseDamagePatches\PatchHardHitsDMG.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\CheckDeadPatches\PatchEnemyDropping.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\CheckDeadPatches\PatchPerkfectionistCheck.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\CheckDeadPatches\PatchPhoenixCheck.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\ChompyPatches\PatchChompyStylish.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\ChompyPatches\PatchWingAttack.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\CheckNewSkills.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\CheckStartState.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\DestinyDreamPatch.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\EnemyDroppingPatch.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\EnemyPatches\AbomiberryPatches.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\EnemyPatches\CavelingPatches.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\EnemyPatches\FrostFlyPatches.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\EnemyPatches\MoerukiPatches.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\EnemyPatches\PirahnaChompPatches.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\EnemyPatches\SpinelingPatches.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\EnemyPatches\SplotchSpiderPatches.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\EnemyPatches\SpuderPatches.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\FrostRelayChargePatch.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\HardChargePatch.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\KabbuPebbleTossPatch.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\KabbuTauntPatch.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\LeifChargePatch.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\NewEnemyChecks.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\EventDialoguePatches\PatchCheckNewEventDialogue.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlGetEXP.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlUpdateText.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\PatchGetMultiDamage.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\PatchTryCondition.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\SetItemPatches\PatchCheckHoloSkill.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\SetItemPatches\PatchTrustFallCheck.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\StartBattlePatches\PatchAddAIParty.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\StartBattlePatches\PatchAmbusherHitAction.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\StartBattlePatches\PatchAreaBattleMusic.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\StartBattlePatches\PatchCheckCustomAI.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\StartBattlePatches\PatchCheckEnemyPos.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\StartBattlePatches\PatchCustomBattleMap.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\StartBattlePatches\PatchEventMusic.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\StartBattlePatches\PatchHoloEnemies.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\StartBattlePatches\PatchLevelChecks.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\StartBattlePatches\PatchStartBattleAction.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\TryFleePatches\PatchInstantFlee.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\UpdateAnimPatches\PatchVengeanceCheck.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\UseItemPatches\PatchMultiUseFix.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\UseItemPatches\PatchNewItemAction.cs" />
+    <Compile Include="Patches\CardGameTranspilers\PatchBuildWindow.cs" />
+    <Compile Include="Patches\CardGameTranspilers\PatchLoadCardData.cs" />
+    <Compile Include="Patches\CardGameTranspilers\PatchStartCard.cs" />
+    <Compile Include="Patches\EntityControlPatch.cs" />
+    <Compile Include="Patches\EntityControlTranspilers\PatchAnimSpecificQuirks.cs" />
+    <Compile Include="Patches\EntityControlTranspilers\PatchEntityControlAddModel.cs" />
+    <Compile Include="Patches\EntityControlTranspilers\PatchEntityControlDeath.cs" />
+    <Compile Include="Patches\EntityControlTranspilers\PatchUpdateAnimSpecific.cs" />
+    <Compile Include="Patches\EntityControlTranspilers\PatchUpdateConditionBubbles.cs" />
+    <Compile Include="Patches\EntityControlTranspilers\PatchUpdateItem.cs" />
+    <Compile Include="Patches\EventControl.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent12.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent148.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent173.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent194.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent34.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent43.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent118.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent127.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent153.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent16.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent162.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent163.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent167.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent189.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent197.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent204.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent208.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent213.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent218.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent26.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent28.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent59.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent65.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent71.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent73.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent8.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent83.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent85.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEvent99.cs" />
+    <Compile Include="Patches\EventControlTranspilers\PatchEventColiseumEnd.cs" />
+    <Compile Include="Patches\FishingMain.cs" />
+    <Compile Include="Patches\MainManager.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\GetEnemyDataPatches\PatchLevelCap.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\GetEnemyDataPatches\PatchTanjyHolo.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\MixIngredientsPatches.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\PatchChangeMusic.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\PatchCheckAchievement.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\PatchDoItemEffect.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\PatchGetItemUse.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\PatchInnSleep.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\PatchLoadEntityData.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\PatchLoadMap.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\PatchLoopPoint.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\PatchMainManagerGetExp.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\PatchMainManagerLateUpdate.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\PatchLoadEssentials.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\PatchMainManagerLoad.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\PatchPlayParticle.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\PatchRefreshSkills.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\PatchSetCondition.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\PatchSetVariables.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\PatchSwitchMusic.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\PatchTransferMap.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\SetTextPatches\PatchBountyQuestTaken.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\SetTextPatches\PatchWarpCommand.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\ShowItemListPatches\PatchNeedlesIcon.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\ShowItemListPatches\PatchNewListType.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\UpdatePatches\PatchDestinyDreamHUD.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\UpdatePatches\PatchGourmetList.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\UpdatePatches\PatchHoloSkillID.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\UpdatePatches\PatchTextSkip.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\UpdatePatches\PatchTrustFallOption.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\RechargeTiredCheck.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\RevengarangPatch.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\StylishPatches\KabbuStylishPatches.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\StylishPatches\LeifStylishPatches.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\StylishPatches\TeamStylishPatches.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\StylishPatches\ViStylishPatches.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\VengeancePatch.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\SetTextPatches\PatchMaxMedal.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\SetTextPatches\PatchPebbleTossGiveItem.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\ShowItemListPatches\PatchBossNames.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\ShowItemListPatches\PatchDestinyDream.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\ShowItemListPatches\PatchHoloSkill.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\ShowItemListPatches\PatchStrategyList.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\ShowItemListPatches\SetTextSkip.cs" />
+    <Compile Include="Patches\MapControl.cs" />
+    <Compile Include="Patches\MapControlTranspilers\PatchCreateEntities.cs" />
+    <Compile Include="Patches\MapControlTranspilers\PatchLateUpdate.cs" />
+    <Compile Include="Patches\MusicSpinner.cs" />
+    <Compile Include="Patches\NPCControl.cs" />
+    <Compile Include="Patches\NPCControlTranspilers\PatchChargeAndAttack.cs" />
+    <Compile Include="Patches\NPCControlTranspilers\PatchCheckBump.cs" />
+    <Compile Include="Patches\NPCControlTranspilers\PatchCheckItem.cs" />
+    <Compile Include="Patches\NPCControlTranspilers\PatchDoBehavior.cs" />
+    <Compile Include="Patches\NPCControlTranspilers\PatchOnTriggerEnter.cs" />
+    <Compile Include="Patches\NPCControlTranspilers\PatchRefreshPlayer.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\PatchMainManagerLevelUpMessage.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\PatchGetTPCost.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\PatchMultiSkillMove.cs" />
+    <Compile Include="Patches\NPCControlTranspilers\PatchShootProjectile.cs" />
+    <Compile Include="Patches\PatchBase.cs" />
+    <Compile Include="Patches\PauseMenu.cs" />
+    <Compile Include="Patches\PauseMenuTranspilers\PatchNewBoxMap.cs" />
+    <Compile Include="Patches\PauseMenuTranspilers\PatchBuildWindow.cs" />
+    <Compile Include="Patches\PauseMenuTranspilers\PatchPauseMenuUpdate.cs" />
+    <Compile Include="Patches\PauseMenuTranspilers\PatchPauseMenuUpdateText.cs" />
+    <Compile Include="Patches\PlayerControl.cs" />
+    <Compile Include="Patches\PlayerControlTranspilers\PatchDoActionTap.cs" />
+    <Compile Include="Patches\PlayerControlTranspilers\PatchMovement.cs" />
+    <Compile Include="Patches\StartMenuPatches.cs" />
+    <Compile Include="Patches\StartMenuTranspilers\PatchLoadNewTitle.cs" />
+    <Compile Include="Patches\StartMenuTranspilers\PatchNewHeaderIcons.cs" />
+    <Compile Include="Patches\StartMenuTranspilers\PatchStartMenuEntityBehavior.cs" />
+    <Compile Include="Patches\StartMenuTranspilers\PatchStartMenuUpdate.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="BFPlus.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".editorconfig" />
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Resources\mapprefabs" />
+    <None Include="Resources\vengeance" />
+    <None Include="settings.json" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

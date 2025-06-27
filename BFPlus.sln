@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BFPlus", "BFPlus.csproj", "{04EF2FE4-EDA3-455B-A9F7-CDF68FE2BB37}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{04EF2FE4-EDA3-455B-A9F7-CDF68FE2BB37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04EF2FE4-EDA3-455B-A9F7-CDF68FE2BB37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04EF2FE4-EDA3-455B-A9F7-CDF68FE2BB37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04EF2FE4-EDA3-455B-A9F7-CDF68FE2BB37}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C2EC8E7-056D-43F9-ADC7-9F3CAC27861C}
+	EndGlobalSection
+EndGlobal
