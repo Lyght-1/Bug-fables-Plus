@@ -565,6 +565,7 @@
     <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchEatenCondition.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchHeatingUp.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchPoisonDMG.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchRemoveLastWind.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AIAttackPatches\PatchAntLieutenantCamera.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AIAttackPatches\PatchCheckNewAI.cs" />
     <Compile Include="Patches\BattleControlTranspilers\CalculateBaseDamagePatches\PatchSturdyDef.cs" />
@@ -588,6 +589,7 @@
     <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlCheckEvent.cs" />
     <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlInvulnerable.cs" />
     <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlRelay.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlRevivePlayer.cs" />
     <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlUpdate.cs" />
     <Compile Include="Patches\BattleControlTranspilers\PatchClearBombEffect.cs" />
     <Compile Include="Patches\BattleControlTranspilers\PatchClearStatus.cs" />
@@ -639,6 +641,7 @@
     <Compile Include="Patches\BattleControlTranspilers\StartBattlePatches\PatchEventMusic.cs" />
     <Compile Include="Patches\BattleControlTranspilers\StartBattlePatches\PatchHoloEnemies.cs" />
     <Compile Include="Patches\BattleControlTranspilers\StartBattlePatches\PatchLevelChecks.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\StartBattlePatches\PatchRemoveLastWind.cs" />
     <Compile Include="Patches\BattleControlTranspilers\StartBattlePatches\PatchStartBattleAction.cs" />
     <Compile Include="Patches\BattleControlTranspilers\TryFleePatches\PatchInstantFlee.cs" />
     <Compile Include="Patches\BattleControlTranspilers\UpdateAnimPatches\PatchVengeanceCheck.cs" />
@@ -782,6 +785,5 @@
     <None Include="Resources\vengeance" />
     <None Include="settings.json" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

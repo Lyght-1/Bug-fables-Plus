@@ -132,6 +132,7 @@ namespace BFPlus
             PatchLoader.SetupILHook(AccessTools.EnumeratorMoveNext(AccessTools.Method(typeof(CardGame), "BuildWindow")), typeof(PatchBaseCardGameBuildWindow));*/
 
             //BattleControl
+            PatchLoader.SetupILHook(AccessTools.Method(typeof(BattleControl), "RevivePlayer", new Type[] {typeof(int), typeof(int), typeof(bool)}), typeof(PatchBaseBattleControlRevivePlayer));
             PatchLoader.SetupILHook(AccessTools.Method(typeof(BattleControl), "CheckEvent"), typeof(PatchBaseBattleControlCheckEvent));
             PatchLoader.SetupILHook(AccessTools.EnumeratorMoveNext(AccessTools.Method(typeof(BattleControl), "ReturnToOverworld")), typeof(PatchBaseBattleControlReturnToOverworld));
             PatchLoader.SetupILHook(AccessTools.Method(typeof(BattleControl), "Invulnerable"), typeof(PatchBaseBattleControlInvulnerable));

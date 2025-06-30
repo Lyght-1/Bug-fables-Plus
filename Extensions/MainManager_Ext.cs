@@ -1575,7 +1575,8 @@ namespace BFPlus.Extensions
             {
                 var entityExt = Entity_Ext.GetEntity_Ext(player.battleentity);
                 entityExt.id = player.trueid;
-                entityExt.lastHp = player.hp;
+                entityExt.lastHp = player.hp; //lifelust medal
+                entityExt.lastTurnHp = player.hp; //determination medal
             }
 
             foreach (var enemy in MainManager.battle.enemydata)

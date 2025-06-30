@@ -2997,6 +2997,7 @@ namespace BFPlus.Extensions
             }
 
             yield return ThrowItem(entity, battle, (MainManager.Items)selectedItem, battle.itemarea, true, true);
+            int damage;
             switch (selectedItem)
             {
                 case (int)NewItem.MysteryBomb:
@@ -3020,11 +3021,16 @@ namespace BFPlus.Extensions
                     partcle.transform.localScale = Vector3.one * 2f;
                     var main = partcle.GetComponent<ParticleSystem>().main;
                     main.startColor = new Color(1f, 0, 1f);
+
+                    damage = 5;
+                    if (MainManager.BadgeIsEquipped((int)MainManager.BadgeTypes.BombPlus))
+                        damage+=2;
+
                     for (int i = 0; i < battle.enemydata.Length; i++)
                     {
                         if (battle.enemydata[i].hp > 0 && battle.enemydata[i].position != BattlePosition.Underground)
                         {
-                            battle.DoDamage(null, ref battle.enemydata[i], 5, AttackProperty.Pierce, null, false);
+                            battle.DoDamage(null, ref battle.enemydata[i], damage, AttackProperty.Pierce, null, false);
                             MainManager.SetCondition(BattleCondition.Inked, ref battle.enemydata[i], 4);
                         }
                     }
@@ -3052,7 +3058,7 @@ namespace BFPlus.Extensions
 
                 case (int)NewItem.SquashSeed:
                 case (int)NewItem.SucculentSeed:
-                    int damage = battle.DoDamage(null, ref battle.enemydata[target], 4, null, null, false);
+                    damage = battle.DoDamage(null, ref battle.enemydata[target], 4, null, null, false);
                     if (damage > 0)
                     {
                         if (selectedItem == (int)NewItem.SucculentSeed)
@@ -3200,7 +3206,11 @@ namespace BFPlus.Extensions
             stickyBomb.transform.position = endPos;
             MainManager.PlayParticle("StickyGet", endPos);
             MainManager.PlaySound("AhoneynationSpit", -1, 0.8f, 1f);
+
             int stickyBombDamage = 6;
+            if (!usedByEnemy && MainManager.BadgeIsEquipped((int)MainManager.BadgeTypes.BombPlus))
+                stickyBombDamage += 2;
+
             int areaDamage = 4;
             if (!usedByEnemy)
             {
@@ -3256,6 +3266,10 @@ namespace BFPlus.Extensions
 
             int amount = 4;
             int damage = 3;
+
+            if (!usedByEnemy && MainManager.BadgeIsEquipped((int)MainManager.BadgeTypes.BombPlus))
+                damage+=2;
+
             Transform[] fireballs = new Transform[2];
 
             for (int i = 0; i < amount; i++)

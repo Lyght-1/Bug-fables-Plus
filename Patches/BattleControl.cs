@@ -432,7 +432,7 @@ namespace BFPlus.Patches
 
                 if (!pierce && MainManager.HasCondition(MainManager.BattleCondition.Sleep, target) > -1 && MainManager.BadgeIsEquipped((int)Medal.SweetDreams))
                 {
-                    int defSweetDreams = MainManager.BadgeHowManyEquipped((int)Medal.SweetDreams, target.trueid) * 2;
+                    int defSweetDreams = MainManager.BadgeHowManyEquipped((int)Medal.SweetDreams, target.trueid) * 1;
                     basevalue += defSweetDreams;
                     BattleControl_Ext.Instance.realDamage += defSweetDreams;
                 }
@@ -482,6 +482,12 @@ namespace BFPlus.Patches
                 t.battleentity.shieldenabled = false;
             }
 
+            if(entityExt.isPlayer && MainManager.BadgeIsEquipped((int)BadgeTypes.LastWind, t.trueid) && entityExt.lastTurnHp > t.hp && entityExt.lastTurnHp - t.hp >= 8)
+            {
+                MainManager.battle.StartCoroutine(battle.ItemSpinAnim(t.battleentity.transform.position + Vector3.up, MainManager.itemsprites[1, (int)BadgeTypes.LastWind], true));
+                t.cantmove--;
+            }
+            entityExt.lastTurnHp = t.hp;
             if (MainManager.HasCondition(MainManager.BattleCondition.Inked, t) == -1 && entityExt.inkDebuffed)
             {
                 if (MainManager.BadgeIsEquipped((int)Medal.PermanentInk) && !entityExt.permanentInkTriggered)

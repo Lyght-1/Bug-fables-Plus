@@ -33,12 +33,12 @@ namespace BFPlus.Extensions
         public bool slugskinActive = false;
         public bool smearchargeActive = false;
         public bool overrideDamageAnim = false;
-       
+        public int lastTurnHp = -1;
         public SpriteRenderer item;
         Stat[] resStats = new Stat[4];
         Transform iconHolder;
         public EntityControl entity;
-        bool isPlayer = false;
+        public bool isPlayer = false;
         SpriteRenderer[] modelSprites = null;
         public int[] oldRes = new int[4] {90, 90, 90, 90};
         public GameObject slugskin = null;

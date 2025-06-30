@@ -14,9 +14,9 @@ namespace BFPlus.Patches.EntityControlTranspilers
     /// <summary>
     /// change text color for sticky
     /// </summary>
-    public class PatchUpdateConditionBubbles : PatchBaseUpdateConditionBubbles
+    public class PatchStickyText : PatchBaseUpdateConditionBubbles
     {
-        public PatchUpdateConditionBubbles()
+        public PatchStickyText()
         {
             priority = 528;
         }
@@ -28,7 +28,7 @@ namespace BFPlus.Patches.EntityControlTranspilers
 
             cursor.Emit(OpCodes.Ldloc, colorTextRef);
             cursor.Emit(OpCodes.Ldloc, arrayRef);
-            cursor.Emit(OpCodes.Call, AccessTools.Method(typeof(PatchUpdateConditionBubbles), "CheckTextColor"));
+            cursor.Emit(OpCodes.Call, AccessTools.Method(typeof(PatchStickyText), "CheckTextColor"));
             cursor.Emit(OpCodes.Stloc, colorTextRef);
         }
 
@@ -40,6 +40,24 @@ namespace BFPlus.Patches.EntityControlTranspilers
             }
 
             return text;
+        }
+    }
+
+    /// <summary>
+    /// Remove the last wind icon when in low hp (<=4 hp)
+    /// </summary>
+    public class PatchLastWindIcon : PatchBaseUpdateConditionBubbles
+    {
+        public PatchLastWindIcon()
+        {
+            priority = 915;
+        }
+        protected override void ApplyPatch(ILCursor cursor)
+        {
+            cursor.GotoNext(i => i.MatchLdcI4(87));
+            cursor.Next.OpCode = OpCodes.Nop;
+            cursor.GotoNext(i => i.MatchLdarg2());
+            Utils.RemoveUntilInst(cursor, i => i.MatchLdcI4(82));
         }
     }
 }

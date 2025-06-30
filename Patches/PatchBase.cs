@@ -254,4 +254,6 @@ namespace BFPlus.Patches.DoActionPatches
     public abstract class PatchBaseCardGameBuildWindow : PatchBase { }
 
     public abstract class PatchBaseNPCControlCheckBump : PatchBase { }
+
+    public abstract class PatchBaseBattleControlRevivePlayer : PatchBase { }
 }
