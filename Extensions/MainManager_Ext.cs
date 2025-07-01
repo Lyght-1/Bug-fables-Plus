@@ -764,7 +764,6 @@ namespace BFPlus.Extensions
 
         public void SetRenderSettingsFromMap(MapControl mapControl)
         {
-            Console.WriteLine("set render settings from map called");
             RenderSettings.skybox = mapControl.skyboxmat;
             RenderSettings.fogColor = mapControl.fogcolor;
             RenderSettings.fogEndDistance = mapControl.fogend;
@@ -1357,7 +1356,6 @@ namespace BFPlus.Extensions
                 (int)MainManager.Enemies.DeadLanderA
             });
             Instance.minibossAmount = tempList.Count;
-            Console.WriteLine(Instance.minibossAmount);
             return tempList.ToArray();
         }
 
@@ -2128,7 +2126,6 @@ namespace BFPlus.Extensions
 
             if(MainManager.instance.avaliablebadgepool.Length < 2 + newShops.Count)
             {
-                Console.WriteLine("setup new shop called");
                 Array.Resize(ref MainManager.instance.avaliablebadgepool, 2 + newShops.Count);
                 Array.Resize(ref MainManager.instance.badgeshops, 2 + newShops.Count);
 
@@ -2275,7 +2272,6 @@ namespace BFPlus.Extensions
 
         public static void ResetRenderSettings()
         {
-            Console.WriteLine("reset render settings called");
             RenderSettings.skybox = Instance.savedRenderSettings.skyboxMat;
             RenderSettings.fogColor = Instance.savedRenderSettings.fogColor;
             RenderSettings.fogEndDistance = Instance.savedRenderSettings.fogEndDistance;
@@ -2396,7 +2392,6 @@ namespace BFPlus.Extensions
                     {
                         if (MainManager.instance.enemyencounter[holoTeamSnek[i], 1] <= 0)
                         {
-                            Console.WriteLine($"superboss not beaten : {boss}");
                             return;
                         }
                     }
@@ -2405,7 +2400,6 @@ namespace BFPlus.Extensions
 
                 if (MainManager.instance.enemyencounter[boss, 1] <= 0)
                 {
-                    Console.WriteLine($"superboss not beaten : {boss}");
                     return;
                 }
  

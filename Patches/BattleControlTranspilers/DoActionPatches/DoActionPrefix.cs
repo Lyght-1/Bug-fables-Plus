@@ -42,23 +42,6 @@ namespace BFPlus.Patches.BattleControlTranspilers.DoActionPatches
 
         static void Prefix(EntityControl entity, int actionid)
         {
-            Console.WriteLine($"do action prefix called, id : {actionid}");
-
-            /*StackTrace stackTrace = new StackTrace();
-
-            UnityEngine.Debug.Log("Call stack:");
-
-            for (int i = 1; i < stackTrace.FrameCount; i++)
-            {
-                StackFrame frame = stackTrace.GetFrame(i);
-                MethodBase method = frame.GetMethod();
-
-                string className = method.DeclaringType?.FullName ?? "(unknown class)";
-                string methodName = method.Name;
-
-                UnityEngine.Debug.Log($"{i}: {className}.{methodName}");
-            }*/
-
             BattleControl_Ext.Instance.inAiAttack = false;
             var __instance = MainManager.battle;
             BattleControl_Ext.Instance.entityAttacking = entity;

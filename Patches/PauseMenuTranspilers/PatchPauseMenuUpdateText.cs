@@ -50,7 +50,6 @@ namespace BFPlus.Patches.PauseMenuTranspilers
 
         static bool CheckMedalList()
         {
-            //Console.WriteLine($"in check medal list, option : {MainManager.instance.option}, listvar length: {MainManager.listvar.Length}, page: {MainManager.pausemenu.page} ");
             if(MainManager.pausemenu.page == 0 && MainManager.listtype == (int)NewListType.MedalCategories && PauseMenu_Ext.Instance.chooseMedalCategory == -1 && MainManager.instance.option < MainManager.listvar.Length)
             {
                 MainManager.instance.itemlist.parent = MainManager.pausemenu.boxes[0].transform;

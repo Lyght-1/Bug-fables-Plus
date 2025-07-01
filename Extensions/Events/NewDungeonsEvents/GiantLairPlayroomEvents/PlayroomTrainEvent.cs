@@ -57,7 +57,7 @@ namespace BFPlus.Extensions.Events.NewDungeonsEvents.GiantLairPlayroomEvents
             }
 
             text += "8|";
-            Console.WriteLine(text);
+
             instance.StartCoroutine(MainManager.SetText(text, true, Vector3.zero, caller.transform,caller));
             while (MainManager.instance.message)
             {

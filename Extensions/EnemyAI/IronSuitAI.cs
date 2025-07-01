@@ -144,7 +144,6 @@ namespace BFPlus.Extensions.EnemyAI
 
         void DoChaosCastEffect(int projId, int[] data, int damageDone)
         {
-            Console.WriteLine("in do chaos cast effect");
             BattleControl.DelayedProjectileData projData = battle.delprojs[projId];
             int playerId = battle.partypointer[projData.position];
             IronSuit.Suit suit = (IronSuit.Suit)data[0];

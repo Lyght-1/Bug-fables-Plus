@@ -261,7 +261,6 @@ namespace BFPlus.Patches.EventControlTranspilers
 
         static void CheckSuperBossTrophy(int amountDefeated)
         {
-            Console.WriteLine($"amount defeated: {amountDefeated}");
             if (MainManager.instance.flagvar[1] == 2 && amountDefeated >= MainManager_Ext.SUPERBOSS_AMOUNT)
             {
                 MainManager.instance.flags[900] = true;

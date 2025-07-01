@@ -28,9 +28,7 @@ namespace BFPlus.Extensions
         {
             MainManager.instance.inevent = true;
             yield return null;
-            Console.WriteLine("im in waitforpitenemydeath");
             yield return new WaitUntil(() => caller == null || !caller.gameObject.activeSelf || caller.entity.deathcoroutine == null);
-            Console.WriteLine("done waiting in waitforpitenemydeath");
 
             int floor = PitData.GetCurrentFloor();
             if (floor == 99)
@@ -401,7 +399,6 @@ namespace BFPlus.Extensions
         static IEnumerator PattonsQuestEvent()
         {
             yield return null;
-            Console.WriteLine("in patton quest event");
 
             EntityControl patton = EventControl.call.entity;
             EntityControl[] party = MainManager.GetPartyEntities(true);

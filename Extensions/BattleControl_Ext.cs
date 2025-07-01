@@ -280,42 +280,29 @@ namespace BFPlus.Extensions
 
         IEnumerator TeamEffortCheck()
         {
-            Console.WriteLine("in teameffortcheck");
             var idRequired = new List<int>();
 
             foreach (var player in MainManager.instance.playerdata)
                 idRequired.Add(player.trueid);
 
-            Console.WriteLine("checking if everyone attacked this turn");
             if (!idRequired.Except(attackedThisTurn).Any())
             {
-                Console.WriteLine("everyone attacked this turn");
                 if (MainManager.BadgeIsEquipped((int)Medal.TeamEffort))
                 {
-                    Console.WriteLine("doing team effort");
                     battle.HealTP(2);
                     yield return EventControl.halfsec;
-                    Console.WriteLine("done team effort");
                 }
 
-                Console.WriteLine("teamcheer check");
                 if (MainManager.BadgeIsEquipped((int)Medal.TeamCheer))
                 {
-                    Console.WriteLine("doing team cheer");
                     for (int i = 0; i < MainManager.instance.playerdata.Length; i++)
                     {
                         if (MainManager.instance.playerdata[i].hp > 0)
                             battle.Heal(ref MainManager.instance.playerdata[i], 1, false);
                     }
                     yield return EventControl.halfsec;
-                    Console.WriteLine("done team cheer");
                 }
             }
-            else
-            {
-                Console.WriteLine("not everyone attacked this turn");
-            }
-            Console.WriteLine("done teameffortcheck");
             attackedThisTurn.Clear();
         }
 
@@ -702,19 +689,14 @@ namespace BFPlus.Extensions
 
         static IEnumerator CheckPerkfectionist()
         {
-            Console.WriteLine("in check perfkectionist (called by checkdead)");
             if (stylishBarAmount >= 1f)
             {
-                Console.WriteLine("in dostylishreward");
                 yield return MainManager.battle.StartCoroutine(Instance.DoStylishReward());
-                Console.WriteLine("done dostylishreward");
             }
 
             if (MainManager.BadgeIsEquipped((int)Medal.Perkfectionist))
             {
-                Console.WriteLine("in doperkfectionist");
                 yield return MainManager.battle.StartCoroutine(Instance.DoPerkfectionist());
-                Console.WriteLine("done doperkfectionist");
             }
 
             if (MainManager.BadgeIsEquipped((int)Medal.StrikeBlaster))
@@ -722,13 +704,10 @@ namespace BFPlus.Extensions
                 yield return new WaitUntil(() => Instance.strikeBlasterManager == null);
                 Instance.strikeBlasters.Clear();
             }
-
-            Console.WriteLine("done check perfkectionist (called by checkdead)");
         }
 
         static void DoInkBlotEnemy()
         {
-            Console.WriteLine("do inkblot enemy called");
             if (MainManager.BadgeIsEquipped((int)Medal.Inkblot))
             {
                 if (battle.enemydata.Length > 1)
@@ -759,7 +738,6 @@ namespace BFPlus.Extensions
 
         static void DoInkBlotPlayer(int playerid)
         {
-            Console.WriteLine("do inkblotplayer called");
             if (MainManager.instance.playerdata[playerid].hp <= 0 && MainManager.BadgeIsEquipped((int)Medal.Inkblot))
             {
                 for (int i = 0; i < MainManager.instance.playerdata.Length; i++)
@@ -768,7 +746,6 @@ namespace BFPlus.Extensions
                     {
                         EntityControl targetEntity = MainManager.instance.playerdata[i].battleentity;
                         float distance = MainManager.GetSqrDistance(targetEntity.transform.position, MainManager.instance.playerdata[playerid].battleentity.transform.position);
-                        Console.WriteLine($"distance between bug taht died and {i} = {distance}");
                         bool isClose = distance <= 6f;
 
                         if (isClose)
@@ -837,8 +814,6 @@ namespace BFPlus.Extensions
 
         static IEnumerator EndOfTurnCheck()
         {
-            Console.WriteLine("in endofturncheck");
-
             var battle = MainManager.battle;
             battle.action = true;
             BattleControl_Ext.Instance.entityAttacking = null;
@@ -898,7 +873,6 @@ namespace BFPlus.Extensions
                     yield return Instance.CheckReviveEnemies();
                 }
 
-                Console.WriteLine("calling checkdead from endofturncheck");
                 yield return battle.StartCoroutine(battle.CheckDead());
 
                 for (int i = 0; i < battle.enemydata.Length; i++)
@@ -908,7 +882,6 @@ namespace BFPlus.Extensions
                         yield return IronSuitAI.ChangeForm(battle.enemydata[i].battleentity, battle.enemydata[i].battleentity.GetComponent<IronSuit>(), i);
                     }
                 }
-                Console.WriteLine("done endofturncheck");
             }
         }
 
@@ -3326,7 +3299,6 @@ namespace BFPlus.Extensions
 
             if (battle.enemydata[actionID].hitaction)
             {
-                Console.WriteLine("setting enemy to false in FixEnemyDiedOnItemUse");
                 battle.enemy = false;
             }
 
@@ -3720,13 +3692,11 @@ namespace BFPlus.Extensions
 
         static IEnumerator WaitForEnemyDrop()
         {
-            Console.WriteLine("in wait for enemy drop");
             battle.startdrop = true;
             while (battle.EnemyDropping())
             {
                 yield return null;
             }
-            Console.WriteLine("done wait for enemy drop");
             battle.startdrop = false;
             if (battle.mainturn == null && battle.chompyattack == null)
             {
@@ -4196,8 +4166,6 @@ namespace BFPlus.Extensions
 
         static void CheckEnemyPos()
         {
-            Console.WriteLine("check enemypos called");
-
             if (!MainManager.instance.inevent)
             {
                 BattleControl_Ext.Instance.CheckEnemyItems();
@@ -4270,7 +4238,6 @@ namespace BFPlus.Extensions
             {
                 //
             }
-            Console.WriteLine("check enemypos done");
         }
 
 
@@ -4627,7 +4594,6 @@ namespace BFPlus.Extensions
         static IEnumerator CheckNewEventDialogue(int id)
         {
             BattleControl battle = MainManager.battle;
-            Console.WriteLine("check new event dialogue called");
 
             switch (id)
             {
@@ -5222,7 +5188,7 @@ namespace BFPlus.Extensions
         {
             MainManager.BattleData target = MainManager.instance.playerdata[battle.currentturn];
             EntityControl playerEntity = MainManager.instance.playerdata[battle.currentturn].battleentity;
-            Console.WriteLine("checking delayed condition player");
+            
             if (target.delayedcondition != null && target.delayedcondition.Count > 0)
             {
                 MainManager.BattleCondition[] bannedConditions = { MainManager.BattleCondition.Topple, BattleCondition.Flipped, BattleCondition.Eaten, BattleCondition.EventStop };
