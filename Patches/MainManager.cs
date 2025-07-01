@@ -405,47 +405,6 @@ namespace BFPlus.Patches
     {
         static void Postfix(ref int __result, int player, int id, bool matchid)
         {
-            if (id == (int)MainManager.Skills.Cleanse && MainManager.BadgeIsEquipped((int)Medal.RinseRegen))
-            {
-                __result += 1;
-            }
-
-            if (id == (int)MainManager.Skills.Cleanse && MainManager.BadgeIsEquipped((int)Medal.Liquidate))
-            {
-                __result += 4;
-            }
-
-            if (id == (int)MainManager.Skills.PeebleToss)
-            {
-                if (MainManager.BadgeIsEquipped((int)Medal.GrumbleGravel))
-                {
-                    __result += 1;
-                }
-
-                if (MainManager.BadgeIsEquipped((int)Medal.SkippingStone))
-                {
-                    __result += 2;
-                }
-
-                if (MainManager.BadgeIsEquipped((int)Medal.Avalanche))
-                {
-                    __result += 1;
-                }
-
-                if (MainManager.BadgeIsEquipped((int)Medal.TanjyToss))
-                {
-                    __result += 1;
-                }
-            }
-
-            if (id == (int)MainManager.Skills.HardCharge)
-            {
-                __result -= 2 * MainManager.BadgeHowManyEquipped((int)Medal.Powerbank, player);
-            }
-
-            if (MainManager.HasCondition(MainManager.BattleCondition.Inked, MainManager.instance.playerdata[player]) > -1 && MainManager.BadgeIsEquipped((int)Medal.InvisibleInk))
-                __result *= 2;
-
             if (MainManager.instance.inevent && MainManager.lastevent == 42)
                 __result = 0;
         }
