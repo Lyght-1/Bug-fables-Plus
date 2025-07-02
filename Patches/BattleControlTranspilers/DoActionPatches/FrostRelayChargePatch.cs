@@ -37,7 +37,7 @@ namespace BFPlus.Patches.DoActionPatches
             cursor.Emit(cursor.Body.Instructions[cursor.Index + 3].OpCode, cursor.Body.Instructions[cursor.Index + 3].Operand);
             cursor.Emit(cursor.Body.Instructions[cursor.Index + 4].OpCode, cursor.Body.Instructions[cursor.Index + 4].Operand);
             cursor.Emit(cursor.Body.Instructions[cursor.Index + 5].OpCode, cursor.Body.Instructions[cursor.Index + 5].Operand);
-            cursor.Emit(OpCodes.Call, AccessTools.Method(typeof(BattleControl_Ext), "CanUseCharge"));
+            cursor.Emit(OpCodes.Call, AccessTools.Method(typeof(BattleControl_Ext), "CanUseCharge", new Type[] {typeof(int)}));
             cursor.Emit(OpCodes.Brfalse, label);
             cursor.GotoNext(MoveType.After, i => i.MatchStfld(typeof(MainManager.BattleData).GetField("charge")));
             cursor.MarkLabel(label);

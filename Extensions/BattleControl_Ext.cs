@@ -3634,7 +3634,7 @@ namespace BFPlus.Extensions
             {
                 bool attackerIsPlayer = attacker.Value.battleentity.CompareTag("Player");
 
-                if ((attackerIsPlayer && !CanUseCharge(attacker.Value.trueid)) || (!attackerIsPlayer && attacker.Value.animid == (int)NewEnemies.LeafbugShaman))
+                if ((attackerIsPlayer && !CanUseCharge(attacker.Value.battleentity.battleid)) || (!attackerIsPlayer && attacker.Value.animid == (int)NewEnemies.LeafbugShaman))
                 {
                     battle.dontusecharge = true;
                     return 0;
@@ -3665,6 +3665,7 @@ namespace BFPlus.Extensions
             }
             return true;
         }
+
 
         static bool CanUseCharge(int playerID)
         {
