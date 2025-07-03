@@ -125,7 +125,8 @@ namespace BFPlus.Extensions
         JoltMush,
         DynamoDish,
         SilverHandle,
-        TauntBerry
+        TauntBerry,
+        HeartyBreakfast2
     }
 
     public enum NewGui

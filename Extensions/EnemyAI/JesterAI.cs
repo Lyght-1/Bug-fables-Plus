@@ -607,7 +607,8 @@ namespace BFPlus.Extensions.EnemyAI
                         if (battle.GetSuperBlock(0))
                             tpdrain -= 1;
                     }
-                    BattleControl_Ext.Instance.RemoveTP(-tpdrain, startPos, endPos);
+                    if(tpdrain > 0)
+                        BattleControl_Ext.Instance.RemoveTP(-tpdrain, startPos, endPos);
                 }
                 else
                 {
