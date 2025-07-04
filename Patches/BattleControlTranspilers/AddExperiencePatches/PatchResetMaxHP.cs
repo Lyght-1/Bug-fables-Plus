@@ -1,0 +1,37 @@
+﻿using BFPlus.Extensions;
+using BFPlus.Patches.DoActionPatches;
+using HarmonyLib;
+using Mono.Cecil.Cil;
+using MonoMod.Cil;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine;
+
+namespace BFPlus.Patches.BattleControlTranspilers.AddExperiencePatches
+{
+    public class PatchResetMaxHP : PatchBaseAddExperience
+    {
+        public PatchResetMaxHP()
+        {
+            priority = 12458;
+        }
+
+        protected override void ApplyPatch(ILCursor cursor)
+        {
+            cursor.GotoNext(i => i.MatchLdcI4(70));
+            cursor.Emit(OpCodes.Call, AccessTools.Method(typeof(PatchResetMaxHP), "ResetMaxHP"));
+        }
+
+        static void ResetMaxHP()
+        {
+            for (int i = 0; i < BattleControl_Ext.startPartyMaxHp.Length; i++)
+            {
+                MainManager.instance.playerdata[i].maxhp = BattleControl_Ext.startPartyMaxHp[i];
+                MainManager.instance.playerdata[i].hp = Mathf.Clamp(MainManager.instance.playerdata[i].hp, 1, MainManager.instance.playerdata[i].maxhp);
+            }
+        }
+    }
+}

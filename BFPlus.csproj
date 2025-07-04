@@ -556,6 +556,7 @@
     <Compile Include="Patches\BattleControl.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AddExperiencePatches\PatchExp.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AddExperiencePatches\PatchLevelCap.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\AddExperiencePatches\PatchResetMaxHP.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AddExperiencePatches\PatchWinJingleCheck.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AdvanceMainTurnPatches\PatchAreaDamageDelProj.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AdvanceMainTurnPatches\PatchEndOfTurnChecks.cs" />

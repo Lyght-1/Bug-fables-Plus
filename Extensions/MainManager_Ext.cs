@@ -989,7 +989,7 @@ namespace BFPlus.Extensions
 
         public static void CheckGamerFX(ref AudioClip soundclip)
         {
-            if (soundclip != null && MainManager.basicload&& MainManager.player != null && MainManager.BadgeIsEquipped((int)Medal.GamerFX))
+            if (soundclip != null && MainManager.basicload&& MainManager.player != null && MainManager.BadgeIsEquipped((int)Medal.GamerFX) && !MainManager.instance.flags[916])
             {
                 bool replaceSound = false;
                 string[] validSounds = new string[] { "Damage0", "OverworldIce", "Cut", "WoodHit", "ShieldHit" };
