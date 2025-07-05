@@ -11,9 +11,21 @@ using static MainManager;
 using System.Reflection;
 using System.Collections;
 using BFPlus.Extensions.Maps;
+using BepInEx;
 
 namespace BFPlus.Patches
 {
+    [HarmonyPatch(typeof(StartMenu), "SetMenuText")]
+    public class PatchStartMenuSetMenuText
+    {
+        static void Postfix(StartMenu __instance)
+        {
+            var pluginMetadata = MetadataHelper.GetMetadata(typeof(BFPlusPlugin));
+            MainManager.instance.StartCoroutine(MainManager.SetText("|size,0.45||halfline||color,4||font,0|Bug Fables Plus v" + pluginMetadata.Version, new Vector3(-8.75f, -3.2f, 10f), __instance.menu1));
+        }
+    }
+
+
     [HarmonyPatch(typeof(StartMenu), "LoadModel")]
     public class PatchStartMenuLoadModel
     {

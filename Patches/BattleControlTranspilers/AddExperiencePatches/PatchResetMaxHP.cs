@@ -12,6 +12,9 @@ using UnityEngine;
 
 namespace BFPlus.Patches.BattleControlTranspilers.AddExperiencePatches
 {
+    /// <summary>
+    /// Make sure to reset the max hp BEFORE there is any lvl up shenanigans
+    /// </summary>
     public class PatchResetMaxHP : PatchBaseAddExperience
     {
         public PatchResetMaxHP()

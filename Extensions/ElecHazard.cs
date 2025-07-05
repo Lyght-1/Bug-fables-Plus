@@ -28,7 +28,7 @@ namespace BFPlus.Extensions
 
         void OnTriggerEnter(Collider col)
         {
-            if (col.CompareTag("PushRock"))
+            if (col.CompareTag("PushRock") && !MainManager.instance.minipause)
             {
                 childHazard.SetActive(false);
                 rockBlocks = true;
