@@ -878,7 +878,7 @@ namespace BFPlus.Extensions
 
         public void CheckSwitcheroo()
         {
-            if (MainManager.player != null && MainManager.instance.badges != null && MainManager.guisprites != null && assetBundle != null)
+            if (MainManager.player != null && MainManager.instance.badges != null && MainManager.guisprites != null && assetBundle != null && !MainManager.instance.flags[916])
             {
                 if (MainManager.BadgeIsEquipped((int)Medal.Switcheroo) && !guiSwapped)
                 {

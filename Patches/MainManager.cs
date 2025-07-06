@@ -674,6 +674,21 @@ namespace BFPlus.Patches
                         }
                     }
 
+                    //this shouldnt happen on new patch but i dont want to have to edit other people save so
+                    //if we havent unlocked B.O.S.S and completed the new analysis quest, unlock b.o.s.s
+                    if (!MainManager.instance.flags[161] && (MainManager.instance.flags[876] || MainManager.instance.flags[878]))
+                        MainManager.instance.flags[161] = true;
+
+                    //Fix vanilla file not having a way to have these music
+                    int[] newMusics = new int[] { (int)NewMusic.KabbuTheme, (int)NewMusic.ViTheme };
+                    foreach(var music in newMusics)
+                    {
+                        if (!MainManager.instance.samiramusics.Any(array => array.Length > 0 && array[0] == music))
+                        {
+                            MainManager.instance.samiramusics.Add(new int[] { music, -1 });
+                        }
+                    }
+
                     if (flags.Length < 900)
                     {
                         if (MainManager.instance.flags[627])

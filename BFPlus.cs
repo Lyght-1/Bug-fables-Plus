@@ -16,7 +16,7 @@ using BFPlus.Extensions;
 using System.Linq;
 namespace BFPlus
 {
-    [BepInPlugin("com.Lyght.BugFables.plugins.BFPlus", "BFPlus", "1.0.2")]
+    [BepInPlugin("com.Lyght.BugFables.plugins.BFPlus", "BFPlus", "1.0.3")]
     [BepInProcess("Bug Fables.exe")]
     public class BFPlusPlugin : BaseUnityPlugin
     {
@@ -132,6 +132,7 @@ namespace BFPlus
             PatchLoader.SetupILHook(AccessTools.EnumeratorMoveNext(AccessTools.Method(typeof(CardGame), "BuildWindow")), typeof(PatchBaseCardGameBuildWindow));*/
 
             //BattleControl
+            PatchLoader.SetupILHook(AccessTools.EnumeratorMoveNext(AccessTools.Method(typeof(BattleControl), "GameOver")), typeof(PatchBaseBattleControlGameover));
             PatchLoader.SetupILHook(AccessTools.Method(typeof(BattleControl), "RevivePlayer", new Type[] {typeof(int), typeof(int), typeof(bool)}), typeof(PatchBaseBattleControlRevivePlayer));
             PatchLoader.SetupILHook(AccessTools.Method(typeof(BattleControl), "CheckEvent"), typeof(PatchBaseBattleControlCheckEvent));
             PatchLoader.SetupILHook(AccessTools.EnumeratorMoveNext(AccessTools.Method(typeof(BattleControl), "ReturnToOverworld")), typeof(PatchBaseBattleControlReturnToOverworld));

@@ -65,6 +65,9 @@ namespace BFPlus.Patches.BattleControlTranspilers
             {
                 MainManager_Ext.Instance.CheckSuperBugAchievement();
             }
+            MainManager.ApplyBadges();
+            MainManager.ApplyStatBonus();
+
             BattleControl_Ext.Instance.ResetStuff();
         }
 

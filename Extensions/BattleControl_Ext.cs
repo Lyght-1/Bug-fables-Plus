@@ -90,7 +90,6 @@ namespace BFPlus.Extensions
         static BattleControl_Ext instance = null;
         List<Entity_Ext> entity_Exts = new List<Entity_Ext>();
         public DelayedProjExtra currentDelayedProj = null;
-        public static int[] startPartyMaxHp = null;
         public int mothFlowerHits = 0;
         public bool inStylishTutorial = false;
         public static BattleControl_Ext Instance
@@ -283,7 +282,7 @@ namespace BFPlus.Extensions
             var idRequired = new List<int>();
 
             foreach (var player in MainManager.instance.playerdata)
-                idRequired.Add(player.trueid);
+                idRequired.Add(player.battleentity.battleid);
 
             if (!idRequired.Except(attackedThisTurn).Any())
             {
@@ -4087,9 +4086,12 @@ namespace BFPlus.Extensions
         {
             if (MainManager.BadgeIsEquipped((int)Medal.StrikeBlaster) && target.hp == 0 && target.eventondeath == -1 && !__instance.inevent && __instance.enemydata.Length > 1)
             {
-                strikeBlasters.Add(new BattleControl_Ext.StrikeBlaster() { dmg = beforeDoDamageHp, entity = target.battleentity });
-                if (strikeBlasterManager == null)
-                    strikeBlasterManager = StartCoroutine(ManageStrikeBlasters());
+                if(!strikeBlasters.Where(s=>s.entity == target.battleentity).Any())
+                {
+                    strikeBlasters.Add(new BattleControl_Ext.StrikeBlaster() { dmg = beforeDoDamageHp, entity = target.battleentity });
+                    if (strikeBlasterManager == null)
+                        strikeBlasterManager = StartCoroutine(ManageStrikeBlasters());
+                }
             }
         }
 
@@ -4106,39 +4108,43 @@ namespace BFPlus.Extensions
                     break;
 
                 yield return EventControl.halfsec;
-                MainManager.PlayParticle("explosionsmall", strikeBlaster.entity.transform.position);
-                MainManager.PlaySound("Explosion");
 
-                yield return EventControl.tenthsec;
-
-                var hitEnemies = battle.enemydata.Where(e => e.hp > 0 && e.position != BattleControl.BattlePosition.Underground).ToArray();
-                if (hitEnemies.Length > 0)
+                if(strikeBlaster.entity != null)
                 {
-                    int rest = strikeBlaster.dmg % hitEnemies.Length;
-                    int damagePerEnemy = strikeBlaster.dmg / hitEnemies.Length;
-                    for (int j = 0; j < hitEnemies.Length; j++)
+                    MainManager.PlayParticle("explosionsmall", strikeBlaster.entity.transform.position);
+                    MainManager.PlaySound("Explosion");
+
+                    yield return EventControl.tenthsec;
+
+                    var hitEnemies = battle.enemydata.Where(e => e.hp > 0 && e.position != BattleControl.BattlePosition.Underground).ToArray();
+                    if (hitEnemies.Length > 0)
                     {
-                        int damageAmount = damagePerEnemy;
-                        int id = hitEnemies[j].battleentity.battleid;
-
-                        if (rest > 0)
+                        int rest = strikeBlaster.dmg % hitEnemies.Length;
+                        int damagePerEnemy = strikeBlaster.dmg / hitEnemies.Length;
+                        for (int j = 0; j < hitEnemies.Length; j++)
                         {
-                            damageAmount++;
-                            rest--;
-                        }
+                            int damageAmount = damagePerEnemy;
+                            int id = hitEnemies[j].battleentity.battleid;
 
-                        if (damageAmount > 0)
-                        {
-                            battle.DoDamage(null, ref battle.enemydata[id], damageAmount, BattleControl.AttackProperty.None, new DamageOverride[] { DamageOverride.NoFall }, false);
+                            if (rest > 0)
+                            {
+                                damageAmount++;
+                                rest--;
+                            }
+
+                            if (damageAmount > 0)
+                            {
+                                battle.DoDamage(null, ref battle.enemydata[id], damageAmount, BattleControl.AttackProperty.None, new DamageOverride[] { DamageOverride.NoFall }, false);
+                            }
                         }
                     }
+
+                    if (battle.checkingdead != null)
+                        battle.StopCoroutine(battle.checkingdead);
+
+                    battle.StartCoroutine(battle.CheckDead());
+                    yield return EventControl.quartersec;
                 }
-
-                if (battle.checkingdead != null)
-                    battle.StopCoroutine(battle.checkingdead);
-
-                battle.StartCoroutine(battle.CheckDead());
-                yield return EventControl.quartersec;
             }
             strikeBlasterManager = null;
             yield return null;

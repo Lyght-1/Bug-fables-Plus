@@ -588,6 +588,7 @@
     <Compile Include="Patches\BattleControlTranspilers\GetChoiceInput\PatchHoloSkillCheck.cs" />
     <Compile Include="Patches\BattleControlTranspilers\GetChoiceInput\PatchInvisibleInk.cs" />
     <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlCheckEvent.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlGameOver.cs" />
     <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlInvulnerable.cs" />
     <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlRelay.cs" />
     <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlRevivePlayer.cs" />

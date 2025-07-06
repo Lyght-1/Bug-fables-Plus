@@ -68,7 +68,7 @@ namespace BFPlus.Patches.DoActionPatches.StylishPatches
             cursor.GotoNext(i=>i.MatchLdcI4(163));
             cursor.GotoNext(MoveType.After,i => i.MatchBlt(out _), i=>i.MatchLdarg0());
             cursor.Prev.OpCode = OpCodes.Nop;
-            Utils.InsertStartStylishTimer(cursor, 3f, 12f, stylishID:1);
+            Utils.InsertStartStylishTimer(cursor, 3f, 20f, stylishID:1);
             cursor.Emit(OpCodes.Ldarg_0);
         }
     }
@@ -84,7 +84,7 @@ namespace BFPlus.Patches.DoActionPatches.StylishPatches
         {
             cursor.GotoNext(i => i.MatchLdcI4(165));
             cursor.GotoNext(MoveType.After, i => i.MatchLdcI4(8), i => i.MatchCall(out _));
-            Utils.InsertStartStylishTimer(cursor, 4f, 12f);
+            Utils.InsertStartStylishTimer(cursor, 4f, 15f);
         }
     }
     

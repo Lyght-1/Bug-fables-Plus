@@ -109,17 +109,10 @@ namespace BFPlus.Patches.PauseMenuTranspilers.UpdatePatches
 
                 if(PauseMenu_Ext.Instance.medalCategoryIcon == null)
                 {
-                    PauseMenu_Ext.Instance.medalCategoryIcon = new GameObject("CategoryIcon");
-                    SpriteRenderer icon = PauseMenu_Ext.Instance.medalCategoryIcon.AddComponent<SpriteRenderer>();
-                    icon.sprite = category.iconId >= 0 ? PauseMenu_Ext.Instance.categoryIcons[category.iconId] : MainManager.guisprites[Mathf.Abs(category.iconId)];
-                    icon.transform.parent = MainManager.pausemenu.boxes[0].transform;
-                    icon.gameObject.layer = 5;
-                    icon.transform.localScale = Vector3.one * 0.45f;
+                    var sprite = category.iconId >= 0 ? PauseMenu_Ext.Instance.categoryIcons[category.iconId] : MainManager.guisprites[Mathf.Abs(category.iconId)];
+                    Vector3 position = category.iconId >= 0 ? new Vector2(-1.3f, 4.45f) : new Vector2(-1.35f, 4f);
 
-                    if(category.iconId >= 0)
-                        icon.transform.localPosition = new Vector2(-1.3f, 4.45f);
-                    else
-                        icon.transform.localPosition = new Vector2(-1.35f, 4f);
+                    PauseMenu_Ext.Instance.medalCategoryIcon = MainManager.NewUIObject("CategoryIcon", MainManager.pausemenu.boxes[0].transform, position, Vector3.one*0.45f, sprite);
                 }
 
                 return true;

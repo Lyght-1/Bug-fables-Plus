@@ -62,7 +62,7 @@ namespace BFPlus.Patches.EventControlTranspilers
             }
 
             if (MainManager.map.chompy != null)
-                MainManager.map.chompy.transform.position = positions[1];
+                MainManager.map.chompy.transform.position = positions[1] + new Vector3(0,0,0.1f);
 
             MainManager.ChangeMusic();
         }

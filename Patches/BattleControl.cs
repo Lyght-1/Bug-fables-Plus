@@ -178,16 +178,6 @@ namespace BFPlus.Patches
         }
     }
 
-    [HarmonyPatch(typeof(BattleControl), "GameOver")]
-    public class PatchBattleControlGameOver
-    {
-        static bool Prefix()
-        {
-            BattleControl_Ext.Instance.ResetStuff();
-            return true;
-        }
-    }
-
     [HarmonyPatch(typeof(BattleControl), "Retry")]
     public class PatchBattleControlRetry
     {
@@ -205,25 +195,8 @@ namespace BFPlus.Patches
         {
             BattleControl_Ext.startStylishAmount = BattleControl_Ext.stylishBarAmount;
             BattleControl_Ext.startStylishReward = BattleControl_Ext.stylishReward;
-            BattleControl_Ext.startPartyMaxHp = new int[MainManager.instance.playerdata.Length];
-            for (int i = 0; i < BattleControl_Ext.startPartyMaxHp.Length; i++)
-            {
-                BattleControl_Ext.startPartyMaxHp[i] = MainManager.instance.playerdata[i].maxhp;
-            }
 
             BattleControl_Ext.Instance.ResetStuff();
-        }
-    }
-
-    [HarmonyPatch(typeof(BattleControl), "ReloadInitialData")]
-    public class PatchBattleControlReloadInitialData
-    {
-        static void Prefix(BattleControl __instance)
-        {
-            for (int i = 0; i < BattleControl_Ext.startPartyMaxHp.Length; i++)
-            {
-                MainManager.instance.playerdata[i].maxhp = BattleControl_Ext.startPartyMaxHp[i];
-            }
         }
     }
 
@@ -482,7 +455,7 @@ namespace BFPlus.Patches
                 t.battleentity.shieldenabled = false;
             }
 
-            if(entityExt.isPlayer && MainManager.BadgeIsEquipped((int)BadgeTypes.LastWind, t.trueid) && entityExt.lastTurnHp > t.hp && entityExt.lastTurnHp - t.hp >= 8)
+            if(entityExt.isPlayer && t.hp > 0 &&MainManager.BadgeIsEquipped((int)BadgeTypes.LastWind, t.trueid) && entityExt.lastTurnHp > t.hp && entityExt.lastTurnHp - t.hp >= 8)
             {
                 MainManager.battle.StartCoroutine(battle.ItemSpinAnim(t.battleentity.transform.position + Vector3.up, MainManager.itemsprites[1, (int)BadgeTypes.LastWind], true));
                 t.cantmove--;
@@ -678,9 +651,9 @@ namespace BFPlus.Patches
                 damageammount += BattleControl_Ext.Instance.CheckKineticEnergy(attacker.Value);
             }
 
-            if (!__instance.enemy && !isFireOrPoison && __instance.chompyattack == null)
+            if (!__instance.enemy && !isFireOrPoison && __instance.chompyattack == null && BattleControl_Ext.Instance.entityAttacking != null)
             {
-                BattleControl_Ext.Instance.attackedThisTurn.Add(__instance.currentturn);
+                BattleControl_Ext.Instance.attackedThisTurn.Add(BattleControl_Ext.Instance.entityAttacking.battleid);
             }
 
             //Smearcharge check

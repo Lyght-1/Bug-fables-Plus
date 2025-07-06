@@ -58,7 +58,7 @@ namespace BFPlus.Patches.EventControlTranspilers
             }
 
             if (MainManager.map.chompy != null)
-                MainManager.map.chompy.transform.position = positions[0];
+                MainManager.map.chompy.transform.position = positions[0] + new Vector3(0,0,0.1f);
 
             //unlock recharge
             MainManager.instance.badgeshops[1].Add((int)Medal.Recharge);

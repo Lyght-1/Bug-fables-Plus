@@ -45,7 +45,7 @@ namespace BFPlus.Patches
             {
                 MainManager_Ext.assetBundle = AssetBundle.LoadFromMemory(Properties.Resources.vengeance);
             }
-
+            RenderSettings.skybox.SetColor("_Tint", new Color(0.5f, 0.5f, 0.5f));
             int lastSaved = GetLastSavedFile();
 
             if(lastSaved == -1)

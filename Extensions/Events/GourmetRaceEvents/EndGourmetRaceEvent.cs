@@ -177,8 +177,11 @@ namespace BFPlus.Extensions.Events.GourmetRaceEvents
 
             int playerPosition = contestants.Select((participant, index) => new { participant.AnimId, Index = index }).FirstOrDefault(x => x.AnimId == 2).Index;
 
-            int berryReward = Mathf.Clamp(Mathf.FloorToInt((float)MainManager.instance.flagvar[1] * 1.15f), 1, MainManager.instance.flagvar[1]);
-            int reward = playerPosition == 2 ? (int)MainManager.Items.TangyJam : (int)MainManager.Items.HoneyPancake;
+            int berryReward = Mathf.Clamp(Mathf.FloorToInt((float)MainManager.instance.flagvar[1] * 0.6f), 1, MainManager.instance.flagvar[1]);
+            int reward = playerPosition == 2 ? (int)MainManager.Items.HoneyIceCream : (int)MainManager.Items.HoneyPancake;
+
+            if (playerPosition == 2 && MainManager.instance.flagvar[1] >= 60)
+                reward = (int)MainManager.Items.TangyJam;
 
             string text = "";
 
@@ -191,7 +194,7 @@ namespace BFPlus.Extensions.Events.GourmetRaceEvents
             }
             if (MainManager.instance.flagvar[1] > 0)
             {
-                text = "|break||giveitem,-1," + Mathf.Clamp(Mathf.FloorToInt((float)MainManager.instance.flagvar[1] * 1.15f), 1, MainManager.instance.flagvar[1]) + $",{nextDialogue},-6|";
+                text = "|break||giveitem,-1," + berryReward + $",{nextDialogue},-6|";
             }
 
             MainManager.instance.StartCoroutine(MainManager.SetText(MainManager.map.dialogues[17] + text, true, Vector3.zero, judge.transform, judge.npcdata));
@@ -210,6 +213,10 @@ namespace BFPlus.Extensions.Events.GourmetRaceEvents
                 }
 
                 int dialoguePositionReward = playerPosition == 2 ? 20 : 21;
+
+                if (playerPosition == 2 && MainManager.instance.flagvar[1] >= 60)
+                    dialoguePositionReward = 25;
+
                 MainManager.instance.StartCoroutine(MainManager.SetText(MainManager.map.dialogues[dialoguePositionReward]+text, true, Vector3.zero, judge.transform, judge.npcdata));
                 while (MainManager.instance.message)
                 {

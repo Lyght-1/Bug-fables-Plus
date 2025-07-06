@@ -30,11 +30,8 @@ namespace BFPlus.Patches.BattleControlTranspilers.AddExperiencePatches
 
         static void ResetMaxHP()
         {
-            for (int i = 0; i < BattleControl_Ext.startPartyMaxHp.Length; i++)
-            {
-                MainManager.instance.playerdata[i].maxhp = BattleControl_Ext.startPartyMaxHp[i];
-                MainManager.instance.playerdata[i].hp = Mathf.Clamp(MainManager.instance.playerdata[i].hp, 1, MainManager.instance.playerdata[i].maxhp);
-            }
+            MainManager.ApplyBadges();
+            MainManager.ApplyStatBonus();
         }
     }
 }

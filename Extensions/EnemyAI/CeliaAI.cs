@@ -171,6 +171,9 @@ namespace BFPlus.Extensions.EnemyAI
             float b = 40f;
             bool block = false;
             bool checkBlock = false;
+
+            int damage = battle.HardMode() ? SHIELD_DAMAGE -1 : SHIELD_DAMAGE;
+
             while (a <= b)
             {
                 shield.position = Vector3.Lerp(startPos, targetPos, a / b);
@@ -187,7 +190,7 @@ namespace BFPlus.Extensions.EnemyAI
                             checkBlock = true;
                         }
 
-                        battle.DoDamage(actionid, battle.partypointer[hitTarget], SHIELD_DAMAGE, null, block);
+                        battle.DoDamage(actionid, battle.partypointer[hitTarget], damage, null, block);
                     }
                     hitTarget++;
                 }
@@ -219,7 +222,7 @@ namespace BFPlus.Extensions.EnemyAI
                             block = battle.commandsuccess;
                             checkBlock = true;
                         }
-                        battle.DoDamage(actionid, targets[hitTarget], SHIELD_DAMAGE, null, block);
+                        battle.DoDamage(actionid, targets[hitTarget], damage, null, block);
                     }
                     hitTarget++;
                 }
