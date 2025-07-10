@@ -450,7 +450,7 @@ namespace BFPlus.Patches
 
             if (!MainManager.instance.flags[616])   
             {
-                if (!__instance.isplayer) 
+                if (!__instance.isplayer && !__instance.mainparty)
                 {
                     MainManager_Ext.CheckEnemyVariantAnimator(__instance);
 
