@@ -582,6 +582,7 @@
     <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\EnemyPatches\WaspScoutPatches.cs" />
     <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\EnemyPatches\ZommothPatches.cs" />
     <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\PatchFrigidCoffinFreeze.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\SkillPatches\ViSkills.cs" />
     <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\YieldUseCharmHP.cs" />
     <Compile Include="Patches\BattleControlTranspilers\EventDialoguePatches\PatchTidalWyrmDeathEvent.cs" />
     <Compile Include="Patches\BattleControlTranspilers\EventDialoguePatches\PatchWaspKingDeathEvent.cs" />

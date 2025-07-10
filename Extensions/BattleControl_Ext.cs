@@ -5494,8 +5494,9 @@ namespace BFPlus.Extensions
             Destroy(storm, 5);
         }
 
-        static int GetMultiHitDamage(int hitCount, int index, int baseDamage)
+        static int GetMultiHitDamage(int baseDamage, int index, int hitCount)
         {
+            Console.WriteLine($"GEt multi called with damage : {baseDamage}, index {index}, hitCount {hitCount}");
             float damageMultiplier;
             damageMultiplier = baseDamage < 4 ? 2 : 1.5f;
 
