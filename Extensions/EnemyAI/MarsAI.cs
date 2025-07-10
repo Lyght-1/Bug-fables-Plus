@@ -68,7 +68,7 @@ namespace BFPlus.Extensions.EnemyAI
                         summonAmount = 3 - battle.enemydata.Length;
                     }
                     yield return SummonBud(entity, actionid, summonAmount);
-                    battle.enemydata[actionid].data[0] = 2;
+                    battle.enemydata[actionid].data[0] = 3;
                     break;
 
                 case Attacks.HugeSeed:

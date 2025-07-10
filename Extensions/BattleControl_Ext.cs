@@ -316,7 +316,7 @@ namespace BFPlus.Extensions
                     return;
                 }
 
-                if(condition == MainManager.BattleCondition.Sleep && MainManager.HasCondition(MainManager.BattleCondition.Sturdy, MainManager.instance.playerdata[yawnBug]) == -1)
+                if (condition == MainManager.BattleCondition.Sleep && MainManager.HasCondition(MainManager.BattleCondition.Sturdy, MainManager.instance.playerdata[yawnBug]) == -1)
                     MainManager.SetCondition(MainManager.BattleCondition.Sleep, ref MainManager.instance.playerdata[yawnBug], 2);
             }
         }
@@ -862,7 +862,7 @@ namespace BFPlus.Extensions
                 Instance.inEndOfTurnDamage = true;
 
                 int[] moves = new int[battle.enemydata.Length];
-                for(int i = 0; i < battle.enemydata.Length; i++)
+                for (int i = 0; i < battle.enemydata.Length; i++)
                 {
                     moves[i] = battle.enemydata[i].cantmove;
                 }
@@ -3024,7 +3024,7 @@ namespace BFPlus.Extensions
 
                     damage = 5;
                     if (MainManager.BadgeIsEquipped((int)MainManager.BadgeTypes.BombPlus))
-                        damage+=2;
+                        damage += 2;
 
                     for (int i = 0; i < battle.enemydata.Length; i++)
                     {
@@ -3268,7 +3268,7 @@ namespace BFPlus.Extensions
             int damage = 3;
 
             if (!usedByEnemy && MainManager.BadgeIsEquipped((int)MainManager.BadgeTypes.BombPlus))
-                damage+=2;
+                damage += 2;
 
             Transform[] fireballs = new Transform[2];
 
@@ -4114,7 +4114,7 @@ namespace BFPlus.Extensions
         {
             if (MainManager.BadgeIsEquipped((int)Medal.StrikeBlaster) && target.hp == 0 && target.eventondeath == -1 && !__instance.inevent && __instance.enemydata.Length > 1)
             {
-                if(!strikeBlasters.Where(s=>s.entity == target.battleentity).Any())
+                if (!strikeBlasters.Where(s => s.entity == target.battleentity).Any())
                 {
                     strikeBlasters.Add(new BattleControl_Ext.StrikeBlaster() { dmg = beforeDoDamageHp, entity = target.battleentity });
                     if (strikeBlasterManager == null)
@@ -4137,7 +4137,7 @@ namespace BFPlus.Extensions
 
                 yield return EventControl.halfsec;
 
-                if(strikeBlaster.entity != null)
+                if (strikeBlaster.entity != null)
                 {
                     MainManager.PlayParticle("explosionsmall", strikeBlaster.entity.transform.position);
                     MainManager.PlaySound("Explosion");
@@ -4536,7 +4536,7 @@ namespace BFPlus.Extensions
             int liquidateMultiplier = 0;
             int infiniteStatus = 0;
 
-            List<int> unclearables = new List<int>() 
+            List<int> unclearables = new List<int>()
             {
                 (int)MainManager.BattleCondition.EventStop,(int)MainManager.BattleCondition.Eaten,(int)MainManager.BattleCondition.Flipped,
                 (int)MainManager.BattleCondition.Taunted, (int)MainManager.BattleCondition.Sturdy
@@ -4568,7 +4568,7 @@ namespace BFPlus.Extensions
                     }
                 }
 
-                if(!unclearables.Contains(condition[0]))
+                if (!unclearables.Contains(condition[0]))
                 {
                     statusAmount++;
                 }
@@ -4682,7 +4682,7 @@ namespace BFPlus.Extensions
                     break;
 
 
-                case (int)NewEventDialogue.PattonDeath:                   
+                case (int)NewEventDialogue.PattonDeath:
                     EntityControl patton = battle.enemydata[battle.EnemyInField((int)NewEnemies.Patton)].battleentity;
                     patton.BreakIce();
                     patton.spin = new Vector3(0, 0, 20);
@@ -5228,7 +5228,7 @@ namespace BFPlus.Extensions
         {
             MainManager.BattleData target = MainManager.instance.playerdata[battle.currentturn];
             EntityControl playerEntity = MainManager.instance.playerdata[battle.currentturn].battleentity;
-            
+
             if (target.delayedcondition != null && target.delayedcondition.Count > 0)
             {
                 MainManager.BattleCondition[] bannedConditions = { MainManager.BattleCondition.Topple, BattleCondition.Flipped, BattleCondition.Eaten, BattleCondition.EventStop };
@@ -5425,7 +5425,7 @@ namespace BFPlus.Extensions
 
         bool CheckHailstorm()
         {
-            for(int i = 0; i < MainManager.instance.playerdata.Length; i++)
+            for (int i = 0; i < MainManager.instance.playerdata.Length; i++)
             {
                 if (MainManager.instance.playerdata[i].hp > 0 && MainManager.HasCondition(BattleCondition.Freeze, MainManager.instance.playerdata[i]) != -1)
                     return true;
@@ -5443,11 +5443,11 @@ namespace BFPlus.Extensions
         IEnumerator DoHailStorm(bool usedByEnemy)
         {
             GameObject storm = Instantiate(MainManager_Ext.assetBundle.LoadAsset<GameObject>("Hailstorm"));
-            storm.transform.position = new Vector3(usedByEnemy ? 0 :-8, 10, -2f);
+            storm.transform.position = new Vector3(usedByEnemy ? 0 : -8, 10, -2f);
 
             Transform[] particles = { storm.transform, storm.transform.GetChild(0) };
-            
-            foreach(var part in particles)
+
+            foreach (var part in particles)
             {
                 ParticleSystem ps = part.GetComponent<ParticleSystem>();
                 var velocity = ps.velocityOverLifetime;
@@ -5460,7 +5460,7 @@ namespace BFPlus.Extensions
             }
             storm.GetComponent<ParticleSystem>().Play();
 
-            MainManager.PlaySound(MainManager_Ext.assetBundle.LoadAsset<AudioClip>("Snowstorm"),-1,1.2f);
+            MainManager.PlaySound(MainManager_Ext.assetBundle.LoadAsset<AudioClip>("Snowstorm"), -1, 1.2f);
             yield return new WaitForSeconds(2.5f);
 
             int stormDamage = 3;
@@ -5468,7 +5468,7 @@ namespace BFPlus.Extensions
             AttackProperty property;
             if (usedByEnemy)
             {
-                for(int i = 0; i < MainManager.instance.playerdata.Length; i++)
+                for (int i = 0; i < MainManager.instance.playerdata.Length; i++)
                 {
                     if (MainManager.instance.playerdata[i].hp > 0 && MainManager.instance.playerdata[i].eatenby == null)
                     {
@@ -5493,6 +5493,22 @@ namespace BFPlus.Extensions
             yield return EventControl.halfsec;
             Destroy(storm, 5);
         }
-    }
 
+        static int GetMultiHitDamage(int hitCount, int index, int baseDamage)
+        {
+            float damageMultiplier;
+            damageMultiplier = baseDamage < 4 ? 2 : 1.5f;
+
+            int maxClamp = 99;
+
+            int totalDamage = (int)Math.Round(baseDamage * damageMultiplier, MidpointRounding.AwayFromZero);
+            int baseHit = totalDamage / hitCount;
+            int remainder = totalDamage % hitCount;
+
+
+            if (totalDamage <= 3)
+                maxClamp = 1;
+            return Mathf.Clamp(baseHit + (index < remainder ? 1 : 0), 1, maxClamp);
+        }
+    }
 }

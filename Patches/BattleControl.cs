@@ -572,7 +572,6 @@ namespace BFPlus.Patches
         }
         static bool isFireOrPoison = false;
         static bool hadPlating = false;
-        static int tpComaActive = -1;
         static int beforeDoDamageHp = -1;
         static bool superBlocked = false;
 
@@ -674,11 +673,6 @@ namespace BFPlus.Patches
                 target.battleentity.inice = true;
                 target.weakness = new List<BattleControl.AttackProperty>(new BattleControl.AttackProperty[] { BattleControl.AttackProperty.HornExtraDamage });
                 target.battleentity.Freeze();
-            }
-
-            if (BattleControl_Ext.Instance.targetIsPlayer && tpComaActive > -1 & !hadPlating && !isFireOrPoison && !__instance.Invulnerable(target))
-            {
-                MainManager.instance.playerdata[target.trueid].hp = 0;
             }
 
             if (MainManager.BadgeIsEquipped((int)Medal.Perkfectionist) && !__instance.enemy && beforeDoDamageHp - __result == 0)
