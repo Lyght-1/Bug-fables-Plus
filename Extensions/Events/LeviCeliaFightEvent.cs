@@ -23,6 +23,9 @@ namespace BFPlus.Extensions.Events
 
             teamCelia[0].animstate = (int)MainManager.Animations.Idle;
 
+            foreach (var entity in teamCelia)
+                entity.FacePlayer();
+
             if (!MainManager.instance.flags[860])
             {
                 MainManager.DialogueText(MainManager.map.dialogues[18], teamCelia[0].transform, caller);

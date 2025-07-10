@@ -1,5 +1,6 @@
 ﻿using BFPlus.Extensions.EnemyAI;
 using BFPlus.Extensions.Stylish;
+using BFPlus.Patches.EventControlTranspilers;
 using InputIOManager;
 using Steamworks;
 using System;
@@ -305,12 +306,27 @@ namespace BFPlus.Extensions
             attackedThisTurn.Clear();
         }
 
+        public void DoYawnCheck(MainManager.BattleData entity, MainManager.BattleCondition condition)
+        {
+            int yawnBug = BattleControl_Ext.GetEquippedMedalBug(Medal.Yawn);
+            if (yawnBug != -1)
+            {
+                if (entity.battleentity.playerentity && entity.trueid == MainManager.instance.playerdata[yawnBug].trueid)
+                {
+                    return;
+                }
+
+                if(condition == MainManager.BattleCondition.Sleep && MainManager.HasCondition(MainManager.BattleCondition.Sturdy, MainManager.instance.playerdata[yawnBug]) == -1)
+                    MainManager.SetCondition(MainManager.BattleCondition.Sleep, ref MainManager.instance.playerdata[yawnBug], 2);
+            }
+        }
+
         static bool DestinyDreamSetHP()
         {
             int destinyDreamBug = GetDestinyDreamBug();
             if (destinyDreamBug > -1)
             {
-                MainManager.instance.playerdata[destinyDreamBug].hp -= MainManager.instance.flagvar[0];
+                MainManager.instance.playerdata[destinyDreamBug].hp -= Mathf.Abs(MainManager.instance.flagvar[0]);
                 return true;
             }
             return false;
@@ -359,7 +375,7 @@ namespace BFPlus.Extensions
             {
                 if (MainManager.BadgeIsEquipped((int)medal, MainManager.instance.playerdata[i].trueid) && condition(i))
                 {
-                    return MainManager.instance.playerdata[i].trueid;
+                    return i;
                 }
             }
             return -1;
@@ -382,7 +398,7 @@ namespace BFPlus.Extensions
             int destinyDreamBug = GetDestinyDreamBug();
             if (destinyDreamBug != -1)
             {
-                int guispritesID = destinyDreamBug + 5;
+                int guispritesID = MainManager.instance.playerdata[destinyDreamBug].trueid + 5;
                 MainManager.NewUIObject("destinyDream", parent.transform, new Vector3(2.55f, 0f), new Vector3(0.45f, 0.5f, 1f) * 0.35f, MainManager.guisprites[guispritesID], 11).GetComponent<SpriteRenderer>();
             }
         }
@@ -845,6 +861,12 @@ namespace BFPlus.Extensions
                 }
                 Instance.inEndOfTurnDamage = true;
 
+                int[] moves = new int[battle.enemydata.Length];
+                for(int i = 0; i < battle.enemydata.Length; i++)
+                {
+                    moves[i] = battle.enemydata[i].cantmove;
+                }
+
                 if (MainManager.BadgeIsEquipped((int)Medal.Hailstorm) && Instance.CheckHailstorm())
                     yield return battle.StartCoroutine(Instance.DoHailStorm(false));
 
@@ -866,6 +888,12 @@ namespace BFPlus.Extensions
                     if (MainManager.BadgeIsEquipped((int)Medal.Nightmare, MainManager.instance.playerdata[i].trueid) && MainManager.HasCondition(MainManager.BattleCondition.Sleep, MainManager.instance.playerdata[i]) > -1)
                         yield return battle.StartCoroutine(Instance.DoNightmare(battle, MainManager.instance.playerdata[i]));
                 }
+
+                for (int i = 0; i < battle.enemydata.Length; i++)
+                {
+                    battle.enemydata[i].cantmove = moves[i];
+                }
+
                 Instance.inEndOfTurnDamage = false;
                 if (battle.AliveEnemies() > 0)
                 {
@@ -4700,6 +4728,8 @@ namespace BFPlus.Extensions
                 battle.StartCoroutine(battle.DoAction(MainManager.instance.playerdata[0].battleentity, -1));
                 yield return new WaitUntil(() => !battle.action);
 
+                var startAngle = MainManager.instance.playerdata[1].battleentity.spritetransform.eulerAngles;
+
                 battle.StartCoroutine(MainManager.SetText(MainManager.commondialogue[208], true, Vector3.zero, MainManager.instance.playerdata[0].battleentity.transform, null));
                 yield return new WaitUntil(() => !MainManager.instance.message);
 
@@ -4707,6 +4737,9 @@ namespace BFPlus.Extensions
                 battle.currentturn = 1;
                 battle.StartCoroutine(battle.DoAction(MainManager.instance.playerdata[1].battleentity, -1));
                 yield return new WaitUntil(() => !battle.action);
+
+                MainManager.instance.playerdata[1].battleentity.spritetransform.eulerAngles = startAngle;
+                MainManager.instance.playerdata[1].battleentity.animstate = (int)MainManager.Animations.BattleIdle;
 
                 battle.StartCoroutine(MainManager.SetText(MainManager.commondialogue[205], true, Vector3.zero, MainManager.instance.playerdata[1].battleentity.transform, null));
                 yield return new WaitUntil(() => !MainManager.instance.message);

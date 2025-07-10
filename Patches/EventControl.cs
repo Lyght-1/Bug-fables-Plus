@@ -65,6 +65,8 @@ namespace BFPlus.Patches
                 hpValues[i] = MainManager.instance.playerdata[i].hp;
             }
 
+            int[] items = MainManager.instance.items[0].ToArray();
+
             while (__result.MoveNext())
             {
                 yield return __result.Current;
@@ -81,6 +83,8 @@ namespace BFPlus.Patches
             }
             BattleControl_Ext.stylishBarAmount = stylishAmount;
             BattleControl_Ext.stylishReward = reward;
+            MainManager.instance.items[0] = new List<int>(items);
+
             MainManager.instance.tp = tp;
         }
 

@@ -146,7 +146,7 @@ namespace BFPlus.Patches
 
             if (destinyDreamHolder != -1)
             {
-                __result = MainManager.instance.playerdata[destinyDreamHolder].hp > tpcost;
+                __result = MainManager.instance.playerdata[destinyDreamHolder].hp > Mathf.Abs(tpcost);
             }
         }
     }
@@ -689,6 +689,10 @@ namespace BFPlus.Patches
                         }
                     }
 
+                    ///Reset the conflicting vision quest taken quest so aria can re-appear in the beehive
+                    if (MainManager.instance.flags[891])
+                        MainManager.instance.flags[890] = false;
+
                     if (flags.Length < 900)
                     {
                         if (MainManager.instance.flags[627])
@@ -883,12 +887,9 @@ namespace BFPlus.Patches
 
         static void Postfix(MainManager.BattleCondition condition, ref MainManager.BattleData entity, int turns, int fromplayer)
         {
-            var animid = entity.animid;
-            Func<int, bool> medalCondition = (i) => animid != MainManager.instance.playerdata[i].animid && MainManager.HasCondition(MainManager.BattleCondition.Sleep, MainManager.instance.playerdata[i]) == -1;
-            int yawnBug = BattleControl_Ext.GetEquippedMedalBug(Medal.Yawn, medalCondition);
-            if (condition == MainManager.BattleCondition.Sleep && yawnBug != -1 && MainManager.HasCondition(MainManager.BattleCondition.Sturdy, MainManager.instance.playerdata[yawnBug]) == -1)
+            if(condition == MainManager.BattleCondition.Sleep)
             {
-                MainManager.SetCondition(MainManager.BattleCondition.Sleep, ref MainManager.instance.playerdata[yawnBug], 2);
+                BattleControl_Ext.Instance.DoYawnCheck(entity, condition);
             }
 
             var entityExt = Entity_Ext.GetEntity_Ext(entity.battleentity);

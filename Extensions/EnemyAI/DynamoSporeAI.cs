@@ -107,7 +107,7 @@ namespace BFPlus.Extensions.EnemyAI
 
 			if(voltShroomCount > 0)
 			{
-                battle.Heal(ref battle.enemydata[actionid], 3 * voltShroomCount, false);
+                battle.Heal(ref battle.enemydata[actionid], 2 * voltShroomCount, false);
             }
             battle.dontusecharge=true;
 			yield return null;

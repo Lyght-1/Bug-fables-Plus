@@ -100,6 +100,7 @@ namespace BFPlus.Patches.EventControlTranspilers
             cursor.GotoNext(i => i.MatchLdsfld(out _));
 
             ILLabel label = cursor.DefineLabel();
+            cursor.Emit(OpCodes.Call, AccessTools.Method(typeof(PatchChapter7HoaxeIntermissionEvent), "SaveOutline"));
             cursor.Emit(OpCodes.Ldc_I4, 947);
             cursor.Emit(OpCodes.Call, AccessTools.Method(typeof(PatchVeGuBattleHoaxeIntermissionEvent), "CheckHoaxeIntermission"));
             cursor.Emit(OpCodes.Brtrue, label);
@@ -112,6 +113,16 @@ namespace BFPlus.Patches.EventControlTranspilers
             cursor.Emit(OpCodes.Ldc_I4_0);
             cursor.Emit(OpCodes.Ret).MarkLabel(label);
             cursor.Emit(OpCodes.Call, AccessTools.Method(typeof(PatchChapter7HoaxeIntermissionEvent), "ResetStuff"));
+
+            int cursorIndex = cursor.Index;
+            cursor.GotoNext(i => i.MatchStsfld(out _));
+            var outlineRef = cursor.Prev.Operand;
+
+            cursor.Goto(cursorIndex);
+            cursor.Emit(OpCodes.Ldarg_0);
+            cursor.Emit(OpCodes.Ldsfld, AccessTools.Field(typeof(MainManager_Ext), "oldOutline"));
+            cursor.Emit(OpCodes.Stfld, outlineRef);
+
             cursor.Emit(OpCodes.Call, AccessTools.Method(typeof(PatchChapter7HoaxeIntermissionEvent), "CheckCreditsFrom"));
             cursor.RemoveRange(3);
 
@@ -147,6 +158,12 @@ namespace BFPlus.Patches.EventControlTranspilers
         static bool CheckCreditsFrom()
         {
             return MainManager.instance.flags[948];
+        }
+
+        static void SaveOutline()
+        {
+            if (!MainManager.instance.flags[947])
+                MainManager_Ext.oldOutline = MainManager.enableoutline;
         }
     }
 }

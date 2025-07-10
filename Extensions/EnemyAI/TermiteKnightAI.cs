@@ -104,14 +104,14 @@ namespace BFPlus.Extensions.EnemyAI
                 battle.enemydata[actionid].data[1] = 1;
             }
 
-            if (battle.enemydata[actionid].data[0] != 1 && UnityEngine.Random.Range(0, 100) < 50)
+            if (battle.enemydata[actionid].data[0] < 0 && UnityEngine.Random.Range(0, 100) < 50)
             {
                 yield return DoTaunt(entity, actionid);
                 yield return EventControl.quartersec;
             }
             else
             {
-                battle.enemydata[actionid].data[0] = 0;
+                battle.enemydata[actionid].data[0]--;
             }
 
             for (int i = 2; i < battle.enemydata[actionid].data.Length; i++)
@@ -259,7 +259,7 @@ namespace BFPlus.Extensions.EnemyAI
                 case PotionType.SuperTP:
                     battle.StartCoroutine(battle.StatEffect(entity, 4));
                     MainManager.PlaySound("StatUp");
-                    battle.enemydata[actionid].charge = 3;
+                    battle.enemydata[actionid].charge = 2;
                     battle.enemydata[actionid].data[2] = 4;
                     break;
                 case PotionType.MP:
@@ -360,7 +360,7 @@ namespace BFPlus.Extensions.EnemyAI
             entity.talking = false;
             targetEntity.overrideanim = false;
             targetEntity.animstate = baseState;
-            battle.enemydata[actionid].data[0] = 1;
+            battle.enemydata[actionid].data[0] = 2;
             battle.playertargetID = -1;
         }
 
@@ -430,6 +430,7 @@ namespace BFPlus.Extensions.EnemyAI
             battle.DoDamage(actionid, battle.playertargetID, SLAM_DAMAGE, null, battle.commandsuccess);
             yield return EventControl.tenthsec;
 
+            battle.enemydata[actionid].charge = 0;
             MainManager.PlaySound("MKDeath");
             MainManager.PlayParticle("impactsmoke", targetEntity.transform.position + Vector3.left);
             SetDefaultCamera();

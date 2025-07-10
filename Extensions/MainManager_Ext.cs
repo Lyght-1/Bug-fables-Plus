@@ -3,6 +3,7 @@ using BFPlus.Extensions.EnemyAI;
 using BFPlus.Extensions.Maps;
 using HarmonyLib;
 using InputIOManager;
+using Steamworks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -306,6 +307,7 @@ namespace BFPlus.Extensions
     {
         GourmetItem=37,
         MedalCategories,
+        BadgeShops
     }
 
     public enum NewDiscoveries
@@ -408,6 +410,11 @@ namespace BFPlus.Extensions
         NothingButAHoaxe
     }
 
+    public enum NewCommand
+    {
+        CheckShop=219
+    }
+
     public class MainManager_Ext : MonoBehaviour
     {
         public static AssetBundle assetBundle;
@@ -442,6 +449,7 @@ namespace BFPlus.Extensions
         public static AreaData backgroundData;
         static MainManager_Ext instance;
         public SavedRenderSettings savedRenderSettings;
+        public static int oldOutline = -1;
         public static MainManager_Ext Instance
         {
             get
@@ -1996,6 +2004,17 @@ namespace BFPlus.Extensions
                 MainManager.listvar = PauseMenu_Ext.Instance.GetObtainedCategories();
                 return true;
             }
+
+            if (type == (int)NewListType.BadgeShops)
+            {
+                int badgeId = 0;
+
+                if (MainManager.map.mapid == MainManager.Maps.UndergroundBar)
+                    badgeId = 1;
+
+                MainManager.listvar = MainManager.instance.badgeshops[badgeId].ToArray();
+                return true;
+            }
             return false;
         }
 
@@ -2068,6 +2087,9 @@ namespace BFPlus.Extensions
 
         public static int GetDoubleDipCost()
         {
+            if (MainManager.instance.inevent && MainManager.lastevent == 42)
+                return 0;
+
             int tpCost = 4;
 
             if (MainManager.battle != null && MainManager.BadgeIsEquipped((int)MainManager.BadgeTypes.TPSaver, MainManager.instance.playerdata[MainManager.battle.currentturn].trueid))

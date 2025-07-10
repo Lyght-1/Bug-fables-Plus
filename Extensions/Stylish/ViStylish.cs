@@ -13,6 +13,7 @@ namespace BFPlus.Extensions.Stylish
     {
         IEnumerator DoBasicAttackStylish()
         {
+            yield return null;
             EntityControl vi = Instance.entityAttacking;
             vi.overrideflip = false;
             vi.flip = true;

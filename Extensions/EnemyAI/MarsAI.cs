@@ -23,8 +23,9 @@ namespace BFPlus.Extensions.EnemyAI
         }
         BattleControl battle = null;
         int VINE_BARRAGE_DAMAGE = 8;
-        int SIMPLE_VINE_DAMAGE = 7;
+        int SIMPLE_VINE_DAMAGE = 10;
         int HUGE_SEED_DAMAGE = 9;
+        int FLOWERETTI_HEAL = 5;
         public override IEnumerator DoBattleAI(EntityControl entity, int actionid)
         {
             battle = MainManager.battle;
@@ -32,19 +33,13 @@ namespace BFPlus.Extensions.EnemyAI
             float hpPercentMars = battle.HPPercent(battle.enemydata[actionid]);
             if (battle.enemydata[actionid].data == null)
             {
-                battle.enemydata[actionid].data = new int[1];
+                battle.enemydata[actionid].data = new int[3];
             }
 
             List<Attacks> chances = new List<Attacks>() {Attacks.HugeSeed, Attacks.VineAttack, Attacks.VineAttack };
 
-
             if (hpPercentMars <= 0.6f)
                 chances.Add(Attacks.VineBarrage);
-
-            if (battle.enemydata.Length > 1)
-            {
-                chances.Add(Attacks.FlowerettiAttack);
-            }
             
             if (battle.enemydata.Length < 3 && battle.enemydata[actionid].data[0] <= 0)
             {
@@ -76,10 +71,6 @@ namespace BFPlus.Extensions.EnemyAI
                     battle.enemydata[actionid].data[0] = 2;
                     break;
 
-                case Attacks.FlowerettiAttack:
-                    yield return DoFlowerettiAttack(entity, actionid);
-                    break;
-
                 case Attacks.HugeSeed:
                     yield return DoHugeSeed(entity, actionid);
                     break;
@@ -89,6 +80,27 @@ namespace BFPlus.Extensions.EnemyAI
                     yield return EventControl.halfsec;
                     yield return battle.VineAttack(SIMPLE_VINE_DAMAGE, actionid, true);
                     break;
+            }
+
+            if (MainManager.GetAlivePlayerAmmount() > 0)
+            {
+                if (battle.enemydata[actionid].data[1] <= 0)
+                {
+                    if (UnityEngine.Random.Range(0,100) < 40 + battle.enemydata[actionid].data[2])
+                    {
+                        BattleControl.SetDefaultCamera();
+                        yield return DoFlowerettiAttack(entity, actionid);
+                        battle.enemydata[actionid].data[2] = 0;
+                        battle.enemydata[actionid].data[1] = 3;
+                        yield break;
+                    }
+                    battle.enemydata[actionid].data[2] += 10;
+                }
+                else
+                {
+                    battle.enemydata[actionid].data[1]--;
+                }
+
             }
         }
 
@@ -348,14 +360,14 @@ namespace BFPlus.Extensions.EnemyAI
 
             yield return EventControl.sec;
             MainManager.PlaySound("StatUp");
-            //MainManager.PlaySound("Heal");
+            MainManager.PlaySound("Heal");
             for (int i = 0; i < battle.enemydata.Length; i++)
             {
                 MainManager.SetCondition(MainManager.BattleCondition.AttackUp, ref battle.enemydata[i], 3);
                 MainManager.SetCondition(MainManager.BattleCondition.DefenseUp, ref battle.enemydata[i], 3);
                 battle.StartCoroutine(battle.StatEffect(battle.enemydata[i].battleentity, 1));
                 battle.StartCoroutine(battle.StatEffect(battle.enemydata[i].battleentity, 0));
-                //Heal(ref instance.enemydata[i], 5, true);
+                battle.Heal(ref battle.enemydata[i], FLOWERETTI_HEAL, true);
             }
 
             MainManager.PlaySound("StatDown");

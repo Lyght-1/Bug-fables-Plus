@@ -667,7 +667,7 @@ namespace BFPlus.Patches
 
         static void Postfix(BattleControl __instance, MethodBase __originalMethod, MainManager.BattleData? attacker, ref MainManager.BattleData target, ref int damageammount, bool block, int __result)
         {
-            if (BattleControl_Ext.Instance.targetIsPlayer && target.hp - __result > 0 && MainManager.BadgeIsEquipped((int)Medal.FlashFreeze, target.trueid) && target.hp > 4 && !isFireOrPoison && MainManager.HasCondition(MainManager.BattleCondition.Sturdy, target) == -1)
+            if (!isFireOrPoison && BattleControl_Ext.Instance.targetIsPlayer && target.hp - __result > 0 && MainManager.BadgeIsEquipped((int)Medal.FlashFreeze, target.trueid) && target.hp > 4 && !isFireOrPoison && MainManager.HasCondition(MainManager.BattleCondition.Sturdy, target) == -1)
             {
                 MainManager.RemoveCondition(MainManager.BattleCondition.Freeze, target);
                 MainManager.SetCondition(MainManager.BattleCondition.Freeze, ref target, 3);
@@ -732,6 +732,12 @@ namespace BFPlus.Patches
                 }
             }
 
+            if (BattleControl_Ext.Instance.targetIsPlayer && target.hp > 0)
+            {
+                if (__result > 0)
+                    BattleControl_Ext.Instance.PotentialEnergyCheck(ref target);
+            }
+
             if (!isFireOrPoison)
             {
                 //Nerfs Bubble shield by only allowing to block 1 attack.
@@ -745,10 +751,6 @@ namespace BFPlus.Patches
 
                 if (BattleControl_Ext.Instance.targetIsPlayer && target.hp > 0)
                 {
-                    if (__result > 0)
-                        BattleControl_Ext.Instance.PotentialEnergyCheck(ref target);
-
-
                     if (MainManager.BadgeIsEquipped((int)Medal.Slugskin, target.trueid) & superBlocked && MainManager.HasCondition(MainManager.BattleCondition.Sticky, target) != -1)
                     {
                         entityExt.CreateSlugskin();

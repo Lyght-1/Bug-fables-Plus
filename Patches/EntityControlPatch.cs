@@ -450,7 +450,7 @@ namespace BFPlus.Patches
 
             if (!MainManager.instance.flags[616])   
             {
-                if (!__instance.playerentity) 
+                if (!__instance.isplayer) 
                 {
                     MainManager_Ext.CheckEnemyVariantAnimator(__instance);
 
@@ -465,7 +465,7 @@ namespace BFPlus.Patches
                 }
                 else
                 {
-                    if (MainManager.BadgeIsEquipped((int)Medal.Switcheroo))
+                    if (MainManager.BadgeIsEquipped((int)Medal.Switcheroo) && !MainManager.instance.flags[916])
                     {
                         __instance.anim.runtimeAnimatorController = MainManager_Ext.Instance.GetSwitcherooAnim(__instance.animid);
                     }

@@ -217,7 +217,7 @@ namespace BFPlus.Extensions.EnemyAI
         IEnumerator DoTailSwipe(EntityControl entity, int actionid)
         {
             entity.animstate = (int)MainManager.Animations.Angry;
-            yield return EventControl.halfsec;
+            yield return EventControl.sec;
 
             battle.GetSingleTarget();
             EntityControl targetEntity = battle.playertargetentity;

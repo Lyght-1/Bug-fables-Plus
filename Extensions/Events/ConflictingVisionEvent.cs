@@ -88,6 +88,7 @@ namespace BFPlus.Extensions.Events
 
             MainManager.ChangeMusic("Bee");
             MainManager.CompleteQuest((int)NewQuest.ConflictingVisions);
+            MainManager.instance.flags[890] = false;
             yield return null;
         }
 

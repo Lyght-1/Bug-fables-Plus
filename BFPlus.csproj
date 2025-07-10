@@ -561,6 +561,7 @@
     <Compile Include="Patches\BattleControlTranspilers\AdvanceMainTurnPatches\PatchAreaDamageDelProj.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AdvanceMainTurnPatches\PatchEndOfTurnChecks.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AdvanceMainTurnPatches\PatchMaxCharge.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchBadDreams.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchCatalystInk.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchCheckCryostatis.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchEatenCondition.cs" />
@@ -714,7 +715,10 @@
     <Compile Include="Patches\MainManagerTranspilers\PatchSwitchMusic.cs" />
     <Compile Include="Patches\MainManagerTranspilers\PatchTransferMap.cs" />
     <Compile Include="Patches\MainManagerTranspilers\SetTextPatches\PatchBountyQuestTaken.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\SetTextPatches\PatchItemValueCommand.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\SetTextPatches\PatchNewCommands.cs" />
     <Compile Include="Patches\MainManagerTranspilers\SetTextPatches\PatchWarpCommand.cs" />
+    <Compile Include="Patches\MainManagerTranspilers\ShowItemListPatches\PatchBadgeShopList.cs" />
     <Compile Include="Patches\MainManagerTranspilers\ShowItemListPatches\PatchNeedlesIcon.cs" />
     <Compile Include="Patches\MainManagerTranspilers\ShowItemListPatches\PatchNewListType.cs" />
     <Compile Include="Patches\MainManagerTranspilers\UpdatePatches\PatchDestinyDreamHUD.cs" />
@@ -730,7 +734,6 @@
     <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\StylishPatches\ViStylishPatches.cs" />
     <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\VengeancePatch.cs" />
     <Compile Include="Patches\MainManagerTranspilers\SetTextPatches\PatchMaxMedal.cs" />
-    <Compile Include="Patches\MainManagerTranspilers\SetTextPatches\PatchPebbleTossGiveItem.cs" />
     <Compile Include="Patches\MainManagerTranspilers\ShowItemListPatches\PatchBossNames.cs" />
     <Compile Include="Patches\MainManagerTranspilers\ShowItemListPatches\PatchDestinyDream.cs" />
     <Compile Include="Patches\MainManagerTranspilers\ShowItemListPatches\PatchHoloSkill.cs" />
