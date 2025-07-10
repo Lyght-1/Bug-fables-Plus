@@ -26,11 +26,13 @@ namespace BFPlus.Patches.BattleControlTranspilers.DoActionPatches.SkillPatches
             cursor.GotoNext(i => i.MatchLdfld(AccessTools.Field(typeof(BattleControl),"lastdamage")));
             cursor.GotoNext(i => i.MatchSub(), i => i.MatchStloc(out _));
             cursor.Remove();
-            cursor.Emit(OpCodes.Ldarg_0);
-            cursor.Emit(OpCodes.Ldfld, AccessTools.Field(typeof(BattleControl), "successfulchain"));
-            cursor.Emit(OpCodes.Ldc_I4_1);
-            cursor.Emit(OpCodes.Add);
+            cursor.Emit(OpCodes.Call, AccessTools.Method(typeof(PatchViTornadoToss), "GetTornadoHits"));
             cursor.Emit(OpCodes.Call, AccessTools.Method(typeof(BattleControl_Ext), "GetMultiHitDamage"));
+        }
+
+        static int GetTornadoHits()
+        {
+            return MainManager.BadgeIsEquipped((int)MainManager.BadgeTypes.Beemerang2) ? 5 : 4;
         }
     }
 }
