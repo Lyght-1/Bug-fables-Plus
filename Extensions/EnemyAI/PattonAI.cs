@@ -366,6 +366,7 @@ namespace BFPlus.Extensions.EnemyAI
 
             int maxHp = MainManager.instance.playerdata[battle.playertargetID].maxhp;
             MainManager.instance.playerdata[battle.playertargetID].maxhp = Mathf.Clamp(maxHp-2,1,999);
+            MainManager.instance.playerdata[battle.playertargetID].hp = Mathf.Clamp(MainManager.instance.playerdata[battle.playertargetID].hp, 0, MainManager.instance.playerdata[battle.playertargetID].maxhp);
             UnityEngine.Object.Destroy(bounce);
             BattleControl.SetDefaultCamera();
 

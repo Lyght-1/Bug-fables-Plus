@@ -675,7 +675,7 @@ namespace BFPlus.Patches
                 target.battleentity.Freeze();
             }
 
-            if (MainManager.BadgeIsEquipped((int)Medal.Perkfectionist) && !__instance.enemy && beforeDoDamageHp - __result == 0)
+            if (MainManager.BadgeIsEquipped((int)Medal.Perkfectionist) && !__instance.enemy && beforeDoDamageHp - __result == 0 && __result != 0)
             {
                 BattleControl_Ext.Instance.perfectKill = true;
                 BattleControl_Ext.Instance.perfectKillAmount++;
