@@ -566,6 +566,7 @@
     <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchCheckCryostatis.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchEatenCondition.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchHeatingUp.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchHeavySleeper.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchPoisonDMG.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchRemoveLastWind.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AIAttackPatches\PatchAntLieutenantCamera.cs" />

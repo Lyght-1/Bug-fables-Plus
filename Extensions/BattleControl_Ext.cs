@@ -213,7 +213,7 @@ namespace BFPlus.Extensions
                     {
                         var enemy = targets[i];
                         CreateBeam(enemy.battleentity.sprite.transform.position, middlePoint, enemy.battleentity.transform);
-                        battle.DoDamage(null, ref __instance.enemydata[targets[i].battleentity.battleid], damageAmount, BattleControl.AttackProperty.Pierce, new DamageOverride[] { DamageOverride.NoFall }, false);
+                        battle.DoDamage(null, ref __instance.enemydata[targets[i].battleentity.battleid], damageAmount, null, new DamageOverride[] { DamageOverride.NoFall }, false);
                     }
                 }
                 yield return EventControl.halfsec;
@@ -345,7 +345,7 @@ namespace BFPlus.Extensions
 
         IEnumerator DoVengeance(int index)
         {
-            MainManager.instance.playerdata[index].charge = MainManager_Ext.CheckMaxCharge(index);
+            MainManager.instance.playerdata[index].charge = 3;
             battle.StartCoroutine(battle.StatEffect(MainManager.instance.playerdata[index].battleentity, 4));
             yield return EventControl.halfsec;
             MainManager.PlaySound("Wam");
@@ -415,16 +415,9 @@ namespace BFPlus.Extensions
         public void CheckFlavorCharger(MainManager.ItemUsage type, int? characterid)
         {
             MainManager.ItemUsage[] usages = new MainManager.ItemUsage[]{
-                MainManager.ItemUsage.GradualHP, MainManager.ItemUsage.GradualTP, MainManager.ItemUsage.HPorDamage,
+                MainManager.ItemUsage.HPorDamage,
                 MainManager.ItemUsage.HPRecover, MainManager.ItemUsage.Revive, MainManager.ItemUsage.HPRecoverFull,
                 MainManager.ItemUsage.HPto1,MainManager.ItemUsage.TPRecover,MainManager.ItemUsage.TPRecoverFull,
-                MainManager.ItemUsage.ChargeUp,MainManager.ItemUsage.TPto1, (MainManager.ItemUsage)NewItemUse.AddInk,
-                (MainManager.ItemUsage)NewItemUse.AddSticky,(MainManager.ItemUsage)NewItemUse.RandomBuff,
-                (MainManager.ItemUsage)NewItemUse.RandomDebuff, (MainManager.ItemUsage)NewItemUse.AddSturdy,
-                (MainManager.ItemUsage)NewItemUse.AddAtkDown, (MainManager.ItemUsage)NewItemUse.AddDefDown,
-                (MainManager.ItemUsage)NewItemUse.AddTaunt, (MainManager.ItemUsage)NewItemUse.AddFire,
-                MainManager.ItemUsage.AddPoison, MainManager.ItemUsage.AddFreeze, MainManager.ItemUsage.AddSleep,
-                MainManager.ItemUsage.AddNumb, MainManager.ItemUsage.TurnNextTurn,
             };
 
             if (usages.Contains(type) && MainManager.BadgeIsEquipped((int)Medal.FlavorCharger, characterid.Value))
@@ -435,9 +428,8 @@ namespace BFPlus.Extensions
             {
                 usages = new MainManager.ItemUsage[]
                 {
-                    MainManager.ItemUsage.GradualHPParty, MainManager.ItemUsage.HPRecoverAll, MainManager.ItemUsage.HPto1All,
-                    MainManager.ItemUsage.ReviveAll, (MainManager.ItemUsage)NewItemUse.AddInkParty, (MainManager.ItemUsage)NewItemUse.AddStickyParty,
-                    (MainManager.ItemUsage)NewItemUse.RandomBuffParty,(MainManager.ItemUsage)NewItemUse.RandomDebuffParty
+                    MainManager.ItemUsage.HPRecoverAll, MainManager.ItemUsage.HPto1All,
+                    MainManager.ItemUsage.ReviveAll
                 };
 
                 if (usages.Contains(type))
