@@ -26,13 +26,34 @@ namespace BFPlus.Patches.BattleControlTranspilers.DoActionPatches.SkillPatches
             cursor.GotoNext(i => i.MatchLdfld(AccessTools.Field(typeof(BattleControl),"lastdamage")));
             cursor.GotoNext(i => i.MatchSub(), i => i.MatchStloc(out _));
             cursor.Remove();
-            cursor.Emit(OpCodes.Call, AccessTools.Method(typeof(PatchViTornadoToss), "GetTornadoHits"));
             cursor.Emit(OpCodes.Call, AccessTools.Method(typeof(BattleControl_Ext), "GetMultiHitDamage"));
+            
+            //remove the no exception part of tornado toss
+            cursor.GotoNext(i => i.MatchLdcI4(13));
+            cursor.Emit(OpCodes.Ldc_I4, (int)BattleControl.AttackProperty.None);
+            cursor.Remove();
+        }
+    }
+
+    public class PatchViHurricaneToss : PatchBaseDoAction
+    {
+        public PatchViHurricaneToss()
+        {
+            priority = 59230;
         }
 
-        static int GetTornadoHits()
+        protected override void ApplyPatch(ILCursor cursor)
         {
-            return MainManager.BadgeIsEquipped((int)MainManager.BadgeTypes.Beemerang2) ? 5 : 4;
+            cursor.GotoNext(i => i.MatchLdcI4(155));
+            cursor.GotoPrev(i => i.MatchLdfld(AccessTools.Field(typeof(BattleControl), "lastdamage")));
+            cursor.GotoNext(i => i.MatchSub(), i => i.MatchStloc(out _));
+            cursor.Remove();
+            cursor.Emit(OpCodes.Call, AccessTools.Method(typeof(BattleControl_Ext), "GetMultiHitDamage"));
+
+            //remove the no exception part of Hurricane toss
+            cursor.GotoNext(i => i.MatchLdcI4(13));
+            cursor.Emit(OpCodes.Ldc_I4, (int)BattleControl.AttackProperty.None);
+            cursor.Remove();
         }
     }
 }

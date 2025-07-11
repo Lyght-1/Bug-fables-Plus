@@ -93,6 +93,7 @@ namespace BFPlus.Extensions
         public DelayedProjExtra currentDelayedProj = null;
         public int mothFlowerHits = 0;
         public bool inStylishTutorial = false;
+        public int iceRainHits = 0;
         public static BattleControl_Ext Instance
         {
             get
@@ -5494,9 +5495,10 @@ namespace BFPlus.Extensions
             Destroy(storm, 5);
         }
 
-        static int GetMultiHitDamage(int baseDamage, int index, int hitCount)
+        static int GetMultiHitDamage(int baseDamage, int index)
         {
             const int baseHitCount = 4;
+            int hitCount = MainManager.BadgeIsEquipped((int)MainManager.BadgeTypes.Beemerang2) ? 5 : 4;
 
             if (hitCount > baseHitCount && index >= baseHitCount)
                 index = baseHitCount - 1;
