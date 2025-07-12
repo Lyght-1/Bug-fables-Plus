@@ -693,6 +693,10 @@ namespace BFPlus.Patches
                     if (MainManager.instance.flags[891])
                         MainManager.instance.flags[890] = false;
 
+                    ///Reset the in need of training taken quest so levi celia can appear in the training grounds
+                    if (MainManager.instance.flags[859])
+                        MainManager.instance.flags[858] = true;
+
                     if (flags.Length < 900)
                     {
                         if (MainManager.instance.flags[627])

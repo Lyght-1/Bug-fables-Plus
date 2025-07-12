@@ -33,7 +33,9 @@ namespace BFPlus.Extensions.Events
                     yield return null;
             }
 
-            MainManager.DialogueText(MainManager.map.dialogues[19], teamCelia[0].transform, caller);
+            int dialogueId = MainManager.instance.flags[859] ? 29 : 19;
+
+            MainManager.DialogueText(MainManager.map.dialogues[dialogueId], teamCelia[0].transform, caller);
             while (MainManager.instance.message)
                 yield return null;
 
@@ -48,8 +50,7 @@ namespace BFPlus.Extensions.Events
                 while (MainManager.instance.message)
                     yield return null;
 
-                MainManager.battlelossevent = false;
-                //MainManager.battlelossevent = true;
+                MainManager.battlelossevent = true;
                 MainManager.instance.StartCoroutine(BattleControl.StartBattle(new int[]
                 {
                 (int)NewEnemies.Levi, (int)NewEnemies.Celia
@@ -66,27 +67,43 @@ namespace BFPlus.Extensions.Events
                 foreach (var e in teamCelia)
                     e.animstate = !lost ? (int)MainManager.Animations.WeakBattleIdle : (int)MainManager.Animations.Idle;
 
-                MainManager.AddPrizeMedal((int)NewPrizeFlag.TeamCelia);
+                if(!MainManager.instance.flags[859] && !lost)
+                    MainManager.AddPrizeMedal((int)NewPrizeFlag.TeamCelia);
+
                 MainManager.ResetCamera(true);
                 MainManager.FadeOut(0.05f);
                 yield return EventControl.halfsec;
-
-                if (lost)
-                    MainManager.DialogueText(MainManager.map.dialogues[25], party[2].transform, caller);
+                if (!MainManager.instance.flags[859])
+                {
+                    if (lost)
+                        MainManager.DialogueText(MainManager.map.dialogues[25], party[2].transform, caller);
+                    else
+                        MainManager.DialogueText(MainManager.map.dialogues[23], caller.transform, caller);
+                }
                 else
-                    MainManager.DialogueText(MainManager.map.dialogues[23], caller.transform, caller);
+                {
+                    if (lost)
+                        MainManager.DialogueText(MainManager.map.dialogues[31], party[2].transform, caller);
+                    else
+                        MainManager.DialogueText(MainManager.map.dialogues[30], caller.transform, caller);
+                }
 
                 while (MainManager.instance.message)
                     yield return null;
 
-                MainManager.FadeIn();
-                yield return EventControl.sec;
-                foreach(var e in teamCelia)
-                    e.gameObject.SetActive(false);
-                yield return EventControl.halfsec;
-                MainManager.FadeOut();
-                yield return EventControl.halfsec;
+                yield return EventControl.tenthsec;
+
                 MainManager.ChangeMusic();
+
+                foreach (var e in teamCelia)
+                    e.animstate = (int)MainManager.Animations.Idle;
+
+                if (!MainManager.instance.flags[859])
+                {
+                    MainManager.instance.flags[859] = true;
+                    MainManager.CompleteQuest((int)NewQuest.InNeedOfTraining);
+                }
+
             }
             else
             {

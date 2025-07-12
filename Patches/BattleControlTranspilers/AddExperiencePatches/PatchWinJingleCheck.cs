@@ -37,7 +37,7 @@ namespace BFPlus.Patches.BattleControlTranspilers.AddExperiencePatches
         {
             if (MainManager.musicvolume > 0f && MainManager.music[0].clip != null)
             {
-                if (MainManager.music[0].clip.name == "Battle6" || !MainManager_Ext.newBattleThemes)
+                if (MainManager.music[0].clip.name == "Battle6")
                     return false;
 
                 string[] possibleBattleTheme = new string[] { 
@@ -203,6 +203,9 @@ namespace BFPlus.Patches.BattleControlTranspilers.AddExperiencePatches
             {
                 newJingle = "BattleWonCaves";
             }
+
+            if (!MainManager_Ext.newBattleThemes)
+                newJingle = "BattleWon";
 
             if (newJingle != "")
             {

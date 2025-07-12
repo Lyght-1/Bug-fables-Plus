@@ -57,7 +57,6 @@ namespace BFPlus.Extensions
         public int revengarangDMG = 0;
         public bool perfectKill = false;
         public int perfectKillAmount = 0;
-        static int perfectKillTotal = 0;
         public int loomLegProgress = 0;
         int oldAnimID = -1;
         public int startState = -1;
@@ -135,7 +134,6 @@ namespace BFPlus.Extensions
         }
         public void ResetStuff()
         {
-            perfectKillTotal = 0;
             BattleControl_Ext.enemyUsedItem = false;
             for (int i = 0; i < MainManager.instance.playerdata.Length; i++)
             {
@@ -468,7 +466,7 @@ namespace BFPlus.Extensions
         static int CheckPerkfectItemDrop(int baseChance, EntityControl entity)
         {
             //int baseChance = !MainManager.BadgeIsEquipped(18) ? !MainManager.BadgeIsEquipped(11) && !MainManager.instance.flags[614] ? -3 : -1 : -7;
-            int itemChance = Mathf.Clamp(MainManager.BadgeIsEquipped((int)Medal.Perkfectionist) ? baseChance + perfectKillTotal : baseChance, baseChance, 0);
+            int itemChance = Mathf.Clamp(baseChance, baseChance, 0);
 
             int[] seedlings = new int[]
             {
@@ -504,15 +502,13 @@ namespace BFPlus.Extensions
 
             foreach (var item in items)
             {
-                if (UnityEngine.Random.Range(0, 100) < 50 + 10 * perfectKillTotal)
+                if (UnityEngine.Random.Range(0, 100) < 50)
                 {
                     int itemID = items[UnityEngine.Random.Range(0, items.Count)];
                     MainManager_Ext.CreateItemEntity(itemID, entity, entity.spritetransform.position, 0);
                     break;
                 }
             }
-            perfectKillTotal = 0;
-
             return UnityEngine.Random.Range(itemChance, entity.npcdata.vectordata.Length);
         }
 
@@ -688,7 +684,6 @@ namespace BFPlus.Extensions
                 MainManager.instance.tp = Mathf.Clamp(MainManager.instance.tp + tpRegen, 0, MainManager.instance.maxtp);
                 battle.ShowDamageCounter(2, tpRegen, battle.partymiddle + Vector3.up, battle.partymiddle + Vector3.up * 2);
                 yield return EventControl.quartersec;
-                perfectKillTotal += Instance.perfectKillAmount;
             }
             Instance.perfectKillAmount = 0;
             Instance.perfectKill = false;
