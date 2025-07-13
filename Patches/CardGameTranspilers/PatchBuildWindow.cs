@@ -118,11 +118,32 @@ namespace BFPlus.Patches.CardGameTranspilers
             var indexRef = cursor.Next.Operand;
             cursor.GotoPrev(i => i.MatchLdarg0(), i => i.MatchLdloc1());
 
+            int cursorIndex = cursor.Index;
+
+            cursor.GotoNext(i => i.MatchLdcI4(48));
+            cursor.GotoPrev(i => i.MatchLdfld(out _), i=>i.MatchLdarg0(), i=>i.MatchLdfld(out _));
+            var atkRef = cursor.Next.Operand;
+           
+            cursor.GotoNext(i => i.MatchLdcI4(48));
+            cursor.GotoNext(i => i.MatchLdelemRef());
+            cursor.GotoNext(i => i.MatchLdfld(out _));
+            var defRef = cursor.Next.Operand;
+
+            cursor.Goto(cursorIndex);
+
             cursor.Emit(OpCodes.Ldarg_0);
             cursor.Emit(OpCodes.Ldarg_0);
             cursor.Emit(OpCodes.Ldfld, indexRef);
             cursor.Emit(OpCodes.Call, AccessTools.Method(typeof(CardGame_Ext), "DoPreCardLoadEffects"));
             Utils.InsertYieldReturn(cursor);
+
+            cursor.Emit(OpCodes.Ldarg_0);
+            cursor.Emit(OpCodes.Ldflda, atkRef);
+            cursor.Emit(OpCodes.Ldarg_0);
+            cursor.Emit(OpCodes.Ldflda, defRef);
+            cursor.Emit(OpCodes.Ldarg_0);
+            cursor.Emit(OpCodes.Ldfld, indexRef);
+            cursor.Emit(OpCodes.Call, AccessTools.Method(typeof(CardGame_Ext), "SetBuffs"));
         }
     }
 

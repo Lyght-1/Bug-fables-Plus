@@ -864,7 +864,7 @@ namespace BFPlus.Extensions
             GameObject cube = Instantiate(__instance.transform.Find("Cube").gameObject);
             cube.transform.parent = __instance.transform;
             cube.transform.position = new Vector3(50, 100, 0);
-            cube.transform.localScale = new Vector3(25, 1, 25);
+            cube.transform.localScale = new Vector3(25, 1, 35);
                 
             Medal[] medals = Enum.GetValues(typeof(Medal)).Cast<Medal>().ToArray();
             NewEnemies[] enemies = Enum.GetValues(typeof(NewEnemies)).Cast<NewEnemies>().Reverse().ToArray();

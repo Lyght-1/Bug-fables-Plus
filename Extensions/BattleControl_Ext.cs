@@ -60,7 +60,7 @@ namespace BFPlus.Extensions
         public int loomLegProgress = 0;
         int oldAnimID = -1;
         public int startState = -1;
-        int rockyRampUpDmg = 0;
+        public int rockyRampUpDmg = 0;
         bool usedPebbleToss = false;
         public bool twinedFateUsed = false;
         public bool spuderStickyBubble = false;
@@ -92,6 +92,7 @@ namespace BFPlus.Extensions
         public DelayedProjExtra currentDelayedProj = null;
         public int mothFlowerHits = 0;
         public bool inStylishTutorial = false;
+        const int vengeanceMax = 3;
         public static BattleControl_Ext Instance
         {
             get
@@ -121,7 +122,7 @@ namespace BFPlus.Extensions
             {
                 for (int i = 0; i < MainManager.instance.playerdata.Length; i++)
                 {
-                    if (CheckVengeance(i) && MainManager.instance.playerdata[i].charge < MainManager_Ext.CheckMaxCharge(i))
+                    if (CheckVengeance(i) && MainManager.instance.playerdata[i].charge < vengeanceMax)
                     {
                         InVengeance = true;
                         StartCoroutine(DoVengeance(i));
@@ -343,7 +344,7 @@ namespace BFPlus.Extensions
 
         IEnumerator DoVengeance(int index)
         {
-            MainManager.instance.playerdata[index].charge = 3;
+            MainManager.instance.playerdata[index].charge = vengeanceMax;
             battle.StartCoroutine(battle.StatEffect(MainManager.instance.playerdata[index].battleentity, 4));
             yield return EventControl.halfsec;
             MainManager.PlaySound("Wam");
@@ -4251,6 +4252,8 @@ namespace BFPlus.Extensions
 
             if (MainManager.battle.enemydata.Any(e => e.animid == (int)NewEnemies.LeafbugShaman) && MainManager.battle.enemydata.Length == 3)
             {
+                MainManager.battle.enemydata[1].basedef = MainManager.battle.enemydata[1].def;
+
                 MainManager.battle.enemydata[0].battlepos = new Vector3(0.9f, 0f, 0f);
                 MainManager.battle.enemydata[1].battlepos = new Vector3(4f, 0f, 0.15f);
                 MainManager.battle.enemydata[2].battlepos = new Vector3(6.8f, 0f, 0.3f);

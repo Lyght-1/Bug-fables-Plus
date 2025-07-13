@@ -113,6 +113,11 @@ namespace BFPlus.Patches.BattleControlTranspilers.AddExperiencePatches
 
         static AudioSource GetWinJingle()
         {
+            if (!MainManager_Ext.newBattleThemes)
+            {
+                return MainManager.PlaySound("BattleWon");
+            }
+
             string newJingle = "";
             switch (MainManager.instance.areaid)
             {
@@ -203,9 +208,6 @@ namespace BFPlus.Patches.BattleControlTranspilers.AddExperiencePatches
             {
                 newJingle = "BattleWonCaves";
             }
-
-            if (!MainManager_Ext.newBattleThemes)
-                newJingle = "BattleWon";
 
             if (newJingle != "")
             {

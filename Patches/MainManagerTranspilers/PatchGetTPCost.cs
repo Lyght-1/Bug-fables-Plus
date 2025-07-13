@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 using static FlappyBee;
 
 namespace BFPlus.Patches
@@ -80,6 +81,11 @@ namespace BFPlus.Patches
                 if (MainManager.BadgeIsEquipped((int)Medal.TanjyToss))
                 {
                     tpCost += 1;
+                }
+
+                if (MainManager.BadgeIsEquipped((int)Medal.RockyRampUp) && MainManager.battle != null)
+                {
+                    tpCost += Mathf.FloorToInt(BattleControl_Ext.Instance.rockyRampUpDmg / 2);
                 }
             }
 
