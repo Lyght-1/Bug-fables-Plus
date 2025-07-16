@@ -67,7 +67,7 @@ namespace BFPlus.Extensions.Events
                 foreach (var e in teamCelia)
                     e.animstate = !lost ? (int)MainManager.Animations.WeakBattleIdle : (int)MainManager.Animations.Idle;
 
-                if(!MainManager.instance.flags[859] && !lost)
+                if(!lost && MainManager.instance.flagvar[(int)NewFlagVar.TeamCelia_Reward] == 0)
                     MainManager.AddPrizeMedal((int)NewPrizeFlag.TeamCelia);
 
                 MainManager.ResetCamera(true);
