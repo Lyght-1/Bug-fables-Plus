@@ -258,4 +258,11 @@ namespace BFPlus.Patches.DoActionPatches
     public abstract class PatchBaseBattleControlRevivePlayer : PatchBase { }
 
     public abstract class PatchBaseBattleControlGameover : PatchBase { }
+
+    public abstract class PatchBaseCardGamePullCard : PatchBase { }
+
+    public abstract class PatchBaseCardGameGetInput : PatchBase { }
+    public abstract class PatchBaseCardGamePlayEnemyCards : PatchBase { }
+
+    public abstract class PatchBaseCardGameCreateCard : PatchBase { }
 }

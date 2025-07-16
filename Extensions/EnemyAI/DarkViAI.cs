@@ -36,10 +36,7 @@ namespace BFPlus.Extensions.EnemyAI
             };
 
             var battle = MainManager.battle;
-            if (battle.turns == 0)
-            {
-                DarkTeamSnakemouth.SetupFight();
-            }
+            DarkTeamSnakemouth.SetupFight(actionid);
 
             int kabbuIndex = battle.EnemyInField((int)NewEnemies.DarkKabbu);
             int leifIndex = battle.EnemyInField((int)NewEnemies.DarkLeif);

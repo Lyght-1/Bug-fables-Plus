@@ -28,14 +28,23 @@ namespace BFPlus.Extensions.EnemyAI
                 relayedThisTurn[i] = false;
         }
 
-        public static void SetupFight()
+        public static void SetupFight(int actionid)
         {
-            inventory = new List<int>()
+            if (MainManager.battle.enemydata[actionid].data == null || MainManager.battle.enemydata[actionid].data[0] == 0)
             {
-                (int)MainManager.Items.KingDinner, (int)MainManager.Items.KingDinner, (int)MainManager.Items.KingDinner,
-                (int)MainManager.Items.MiracleShake,(int)MainManager.Items.MiracleShake,(int)MainManager.Items.MiracleShake,
-                (int)MainManager.Items.SquashSoda, (int)MainManager.Items.SquashSoda, (int)MainManager.Items.SquashSoda,(int)MainManager.Items.SquashSoda
-            };
+                inventory = new List<int>()
+                {
+                    (int)MainManager.Items.KingDinner, (int)MainManager.Items.KingDinner, (int)MainManager.Items.KingDinner,
+                    (int)MainManager.Items.MiracleShake,(int)MainManager.Items.MiracleShake,(int)MainManager.Items.MiracleShake,
+                    (int)MainManager.Items.SquashSoda, (int)MainManager.Items.SquashSoda, (int)MainManager.Items.SquashSoda,(int)MainManager.Items.SquashSoda
+                };
+
+                for (int i = 0; i < MainManager.battle.enemydata.Length; i++)
+                {
+                    MainManager.battle.SetData(i, 1);
+                    MainManager.battle.enemydata[i].data[0] = 1;
+                }
+            }
         }
 
         public static IEnumerator UseItem(int itemid, EntityControl entity, int actionid)
@@ -134,7 +143,7 @@ namespace BFPlus.Extensions.EnemyAI
                 }
                 while (a < b / 1.5f + 1f);
 
-                battle.DoDamage(battle.enemydata[0], ref MainManager.instance.playerdata[playerTargetIDRef], Mathf.Clamp(atk[0] - (it - times), 0, 99), null, null, false);
+                battle.DoDamage(battle.enemydata[0], ref MainManager.instance.playerdata[playerTargetIDRef], Mathf.Clamp(atk[0] - (it - times), 0, 99), null, null, battle.commandsuccess);
                 battle.enemydata[0].charge = 0;
                 yield return EventControl.tenthsec;
                 a = 0f;
@@ -344,10 +353,10 @@ namespace BFPlus.Extensions.EnemyAI
                     break;
                 for (int i = 0; i < MainManager.instance.playerdata.Length; i++)
                 {
-                    if (!entityHit[i] && iceball.transform.position.x < MainManager.instance.playerdata[i].entity.transform.position.x)
+                    if (!entityHit[i] && iceball.transform.position.x < MainManager.instance.playerdata[i].battleentity.transform.position.x)
                     {
                         entityHit[i] = true;
-                        if (MainManager.instance.playerdata[i].battleentity.height < 3f && MainManager.instance.playerdata[i].hp > 0)
+                        if (MainManager.instance.playerdata[i].hp > 0)
                         {
                             battle.DoDamage(null, ref MainManager.instance.playerdata[i], Mathf.Clamp(Mathf.CeilToInt((float)partydam * a), 2, 99), BattleControl.AttackProperty.Freeze,null, battle.commandsuccess);
                         }
@@ -420,7 +429,6 @@ namespace BFPlus.Extensions.EnemyAI
             var playerTargetEntityRef = battle.playertargetentity;
             var playerTargetIDRef = battle.playertargetID;
 
-            var targetBattleEntity = MainManager.GetPlayerData(playerTargetIDRef);
             Vector3[] startEntitiesPos = new Vector3[entities.Length];
             for (int i = 0; i < entities.Length; i++)
             {

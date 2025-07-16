@@ -155,7 +155,10 @@ namespace BFPlus.Extensions
         LoreBook,
         ItemLeaf,
         Sticky,
-        PointSwap
+        PointSwap,
+        SpycardsTen,
+        SpycardsEleven,
+        SpycardsTwelve
     }
 
     public enum NewSkill
@@ -443,7 +446,7 @@ namespace BFPlus.Extensions
         public int minibossAmount = -1;
         public int bossAmount = -1;
         public const int SUPERBOSS_AMOUNT = 12;
-        public const int HDWGH_CONDITIONS = 20;
+        public const int HDWGH_CONDITIONS = 10; //20 was max, nerfed cause not fun
         public int newBossMap = -1;
         List<Sprite> oldGui;
         public static AreaData backgroundData;

@@ -1261,10 +1261,10 @@ namespace BFPlus.Extensions
 
                 GameObject roachHouse2 = GameObject.Find("RoachHouse2").gameObject;
 
-                var mainAsset = MainManager_Ext.mapPrefabs.LoadAsset("RoachHouse2") as GameObject;
+                var mainAsset = MainManager_Ext.mapPrefabs.LoadAsset("RoachHouse3") as GameObject;
                 var meshes = mainAsset.GetComponentsInChildren<MeshFilter>(true);
 
-                Mesh newHouse = meshes.FirstOrDefault(m => m.name == "RoachHouse2").mesh;
+                Mesh newHouse = meshes.FirstOrDefault(m => m.name == "RoachHouse3").mesh;
                 roachHouse2.GetComponent<MeshFilter>().mesh = newHouse;
                 roachHouse2.GetComponent<MeshCollider>().sharedMesh = newHouse;
 

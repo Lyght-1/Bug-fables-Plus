@@ -24,9 +24,12 @@ namespace BFPlus.Patches.EventControlTranspilers
         }
         protected override void ApplyPatch(ILCursor cursor)
         {
-            cursor.GotoNext(i => i.MatchLdcI4(83));
-            cursor.Emit(OpCodes.Ldc_I4, (int)NewItem.MusicPlayer);
-            cursor.Remove();
+            for(int i = 0; i < 2; i++)
+            {
+                cursor.GotoNext(j => j.MatchLdcI4(83));
+                cursor.Emit(OpCodes.Ldc_I4, (int)NewItem.MusicPlayer);
+                cursor.Remove();
+            }
         }
     }
 

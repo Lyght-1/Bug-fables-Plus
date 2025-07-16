@@ -561,6 +561,7 @@
     <Compile Include="Patches\BattleControlTranspilers\AdvanceMainTurnPatches\PatchAreaDamageDelProj.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AdvanceMainTurnPatches\PatchEndOfTurnChecks.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AdvanceMainTurnPatches\PatchMaxCharge.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\AdvanceMainTurnPatches\PatchNoActionEven.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchBadDreams.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchCatalystInk.cs" />
     <Compile Include="Patches\BattleControlTranspilers\AdvanceTurnEntityPatches\PatchCheckCryostatis.cs" />
@@ -652,7 +653,11 @@
     <Compile Include="Patches\BattleControlTranspilers\UseItemPatches\PatchMultiUseFix.cs" />
     <Compile Include="Patches\BattleControlTranspilers\UseItemPatches\PatchNewItemAction.cs" />
     <Compile Include="Patches\CardGameTranspilers\PatchBuildWindow.cs" />
+    <Compile Include="Patches\CardGameTranspilers\PatchCreateCard.cs" />
+    <Compile Include="Patches\CardGameTranspilers\PatchGetInput.cs" />
     <Compile Include="Patches\CardGameTranspilers\PatchLoadCardData.cs" />
+    <Compile Include="Patches\CardGameTranspilers\PatchPlayEnemyCards.cs" />
+    <Compile Include="Patches\CardGameTranspilers\PatchPullCard.cs" />
     <Compile Include="Patches\CardGameTranspilers\PatchStartCard.cs" />
     <Compile Include="Patches\EntityControlPatch.cs" />
     <Compile Include="Patches\EntityControlTranspilers\PatchAnimSpecificQuirks.cs" />

@@ -35,4 +35,46 @@ namespace BFPlus.Patches.EventControlTranspilers
             return excludeIds;
         }
     }
+
+    public class PatchSpyGuyAddNewBosses : PatchBaseEvent65
+    {
+        public PatchSpyGuyAddNewBosses()
+        {
+            priority = 71433;
+        }
+        protected override void ApplyPatch(ILCursor cursor)
+        {
+            cursor.GotoNext(MoveType.After, i => i.MatchLdcI4(32), i=>i.MatchCallvirt(out _));
+
+            cursor.Emit(OpCodes.Ldloc_3);
+            cursor.Emit(OpCodes.Call, AccessTools.Method(typeof(PatchSpyGuyAddNewBosses), "AddNewBosses"));
+            cursor.Emit(OpCodes.Stloc_3);
+        }
+
+        static List<int> AddNewBosses(List<int> bosses)
+        {
+            bosses.AddRange(new int[] {
+                (int)NewEnemies.DynamoSpore,
+                (int)NewEnemies.DullScorp,
+                (int)NewEnemies.Belosslow,
+                (int)NewEnemies.IronSuit,
+                (int)NewEnemies.Jester,
+                (int)MainManager.Enemies.HoloVi,
+                (int)MainManager.Enemies.HoloKabbu,
+                (int)MainManager.Enemies.HoloLeif,
+                (int)MainManager.Enemies.TANGYBUG,
+                (int)NewEnemies.TermiteKnight,
+                (int)NewEnemies.Mars,
+                (int)NewEnemies.DarkVi,
+                (int)NewEnemies.DarkKabbu,
+                (int)NewEnemies.DarkLeif,
+                (int)NewEnemies.LeafbugShaman,
+                (int)NewEnemies.Patton,
+                (int)NewEnemies.Levi,
+                (int)NewEnemies.Celia,
+            });
+            return bosses;
+
+        }
+    }
 }

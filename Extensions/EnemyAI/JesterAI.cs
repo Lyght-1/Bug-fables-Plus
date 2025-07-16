@@ -822,6 +822,7 @@ namespace BFPlus.Extensions.EnemyAI
                     playerEntity.LockRigid(false);
                     playerEntity.transform.position = playerPos;
                     playerEntity.animstate = (int)MainManager.Animations.KO;
+                    playerEntity.rotater.eulerAngles = Vector3.zero;
                     //BattleControl.SetDefaultCamera();
 
                     yield return EventControl.halfsec;

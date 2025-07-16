@@ -744,6 +744,12 @@ namespace BFPlus.Patches
                         //completed all quests
                         MainManager.instance.flags[671] = false;
 
+                        //if chuck quest is completed, add grumble gravel to badgeshop
+                        if (MainManager.instance.flags[45])
+                        {
+                            MainManager.instance.badgeshops[0].Add((int)Medal.GrumbleGravel);
+                        }
+
                         int[] recordsId = { 1,2,3,4,7,8,9,10,27,28 };
                         
                         foreach(var record in recordsId)

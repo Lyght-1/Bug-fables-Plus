@@ -1316,7 +1316,16 @@ namespace BFPlus.Extensions
             target.isnumb = false;
         }
 
+        void ReviveAllEnemies(int value)
+        {
+            if(battle.reservedata.Count > 0)
+            {
+                ReviveEnemy(0, value);
 
+                if (battle.reservedata.Count > 0)
+                    ReviveEnemy(0, value);
+            }
+        }
 
         public IEnumerator DoItemEffect(MainManager.ItemUsage type, int value, int? enemyID, int reviveID, MainManager.Items item)
         {
@@ -1365,11 +1374,7 @@ namespace BFPlus.Extensions
                     {
                         battle.Heal(ref battle.enemydata[i], value, false);
                     }
-
-                    for (int i = 0; i < battle.reservedata.Count; i++)
-                    {
-                        ReviveEnemy(i, value);
-                    }
+                    ReviveAllEnemies(value);
                     wait = true;
                     break;
 

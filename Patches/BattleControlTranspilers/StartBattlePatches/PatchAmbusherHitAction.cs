@@ -31,7 +31,6 @@ namespace BFPlus.Patches.BattleControlTranspilers.StartBattlePatches
             for(int i = 0; i < MainManager.battle.enemydata.Length; i++)
             {
                 MainManager.battle.enemydata[i].hitaction = false;
-
             }
         }
     }

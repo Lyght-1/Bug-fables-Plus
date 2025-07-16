@@ -33,7 +33,7 @@ namespace BFPlus.Patches.MainManagerTranspilers
                 new DataPatcher(){loader = OpCodes.Ldloc_0, name = "BoardQuests", foundString = "/BoardQuests", setter = OpCodes.Stloc_0, delimiter = "["},
                 new DataPatcher(){loader = OpCodes.Ldloc_1, name = "BoardData", foundString = "Data/BoardData", setter = OpCodes.Stloc_1 },
                 new DataPatcher(){loader = OpCodes.Ldloc_S, name = "DiscoveryOrder", foundString = "Data/DiscoveryOrder", setter = OpCodes.Stloc_S, tattleList = true},
-                new DataPatcher(){loader = OpCodes.Ldloc_0, name = "Discoveries", foundString = "/Discoveries", setter = OpCodes.Stloc_0},
+                new DataPatcher(){loader = OpCodes.Ldloc_0, name = "Discoveries", foundString = "/Discoveries", setter = OpCodes.Stloc_0, delimiter = "["},
                 new DataPatcher(){loader = OpCodes.Ldloc_S, name = "TattleList", foundString = "Data/TattleList", setter = OpCodes.Stloc_S, completeReplace = OpCodes.Ldc_I4_1, tattleList = true },
                 new DataPatcher(){loader = OpCodes.Ldloc_0, name = "EnemyTattle", foundString = "/EnemyTattle", setter = OpCodes.Stloc_0, delimiter = "[" },
                 new DataPatcher(){loader = OpCodes.Ldloc_S, name = "CookOrder", foundString = "Data/CookOrder", setter = OpCodes.Stloc_S, tattleList = true, addEmpty = OpCodes.Ldc_I4_0 },

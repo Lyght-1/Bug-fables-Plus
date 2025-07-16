@@ -491,21 +491,6 @@ namespace BFPlus.Patches
         }
     }
 
-    [HarmonyPatch(typeof(BattleControl), "CheckDead")]
-    public class PatchBattleControlCheckDead
-    {
-        static void Prefix(BattleControl __instance, ref IEnumerator __result)
-        {
-            for (int i = 0; i != __instance.enemydata.Length; i++)
-            {
-                if (__instance.enemydata[i].hp <= 0 && __instance.enemydata[i].deathtype == 13)
-                {
-                    __instance.reservedata.Add(__instance.enemydata[i]);
-                }
-            }
-        }
-    }
-
     [HarmonyPatch(typeof(BattleControl), "PincerStatus")]
     public class PatchBattleControlPincerStatus
     {
@@ -675,7 +660,7 @@ namespace BFPlus.Patches
                 target.battleentity.Freeze();
             }
 
-            if (MainManager.BadgeIsEquipped((int)Medal.Perkfectionist) && !__instance.enemy && beforeDoDamageHp - __result == 0 && __result != 0)
+            if (MainManager.BadgeIsEquipped((int)Medal.Perkfectionist) && !__instance.enemy && beforeDoDamageHp - __result == 0 && __result != 0 && beforeDoDamageHp != 0)
             {
                 BattleControl_Ext.Instance.perfectKill = true;
                 BattleControl_Ext.Instance.perfectKillAmount++;

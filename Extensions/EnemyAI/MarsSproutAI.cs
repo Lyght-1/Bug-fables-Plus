@@ -166,6 +166,8 @@ namespace BFPlus.Extensions.EnemyAI
 
             for (int i = 0; i < hits; i++)
             {
+                if (MainManager.GetAlivePlayerAmmount() == 0)
+                    break;
                 MainManager.PlaySound("Blosh", 1.25f, 1);
                 battle.GetSingleTarget();
                 int playerTargetID = battle.playertargetID;

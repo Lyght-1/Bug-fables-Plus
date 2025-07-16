@@ -45,6 +45,7 @@ namespace BFPlus.Extensions.EnemyAI
             };
 
             battle = MainManager.battle;
+            DarkTeamSnakemouth.SetupFight(actionid);
 
             int viIndex = battle.EnemyInField((int)NewEnemies.DarkVi);
             int leifIndex = battle.EnemyInField((int)NewEnemies.DarkLeif);
