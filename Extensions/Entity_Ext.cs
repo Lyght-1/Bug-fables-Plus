@@ -44,6 +44,7 @@ namespace BFPlus.Extensions
         public GameObject slugskin = null;
         Animator slugAnim = null;
         public bool inkWellActive = false;
+        public bool adrenalineUsed = false;
         void Start()
         {
             entity = GetComponent<EntityControl>();

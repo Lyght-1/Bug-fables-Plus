@@ -430,7 +430,6 @@ namespace BFPlus.Extensions
         public static Medal[] medalDupes = new Medal[] { Medal.Powerbank, Medal.HPDown, Medal.MPPlus, Medal.MPPlus, Medal.MPPlus,
             Medal.InkBubble, Medal.Smearcharge };
         public static string[] enemyData;
-        public static bool adrenalineChecked = true;
         public static bool fastText = false;
         public static bool showResistance = false;
         public static bool newBattleThemes = false;

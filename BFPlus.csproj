@@ -583,6 +583,7 @@
     <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\EnemyPatches\ThiefPatches.cs" />
     <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\EnemyPatches\WaspScoutPatches.cs" />
     <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\EnemyPatches\ZommothPatches.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\PatchFixSetLastTurns.cs" />
     <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\PatchFrigidCoffinFreeze.cs" />
     <Compile Include="Patches\BattleControlTranspilers\DoActionPatches\YieldUseCharmHP.cs" />
     <Compile Include="Patches\BattleControlTranspilers\EventDialoguePatches\PatchTidalWyrmDeathEvent.cs" />

@@ -16,7 +16,7 @@ using BFPlus.Extensions;
 using System.Linq;
 namespace BFPlus
 {
-    [BepInPlugin("com.Lyght.BugFables.plugins.BFPlus", "BFPlus", "1.0.4.5")]
+    [BepInPlugin("com.Lyght.BugFables.plugins.BFPlus", "BFPlus", "1.0.4.6")]
     [BepInProcess("Bug Fables.exe")]
     public class BFPlusPlugin : BaseUnityPlugin
     {
@@ -125,13 +125,13 @@ namespace BFPlus
             PatchLoader.SetupILHook(AccessTools.Method(typeof(PlayerControl), "Movement"), typeof(PatchBasePlayerControlMovement));
 
             //CardGame
-            /*PatchLoader.SetupILHook(AccessTools.EnumeratorMoveNext(AccessTools.Method(typeof(CardGame), "StartCard")), typeof(PatchBaseCardGameStartCard));
+            PatchLoader.SetupILHook(AccessTools.EnumeratorMoveNext(AccessTools.Method(typeof(CardGame), "StartCard")), typeof(PatchBaseCardGameStartCard));
             PatchLoader.SetupILHook(AccessTools.Method(typeof(CardGame), "LoadCardData"), typeof(PatchBaseCardGameLoadCardData));
             PatchLoader.SetupILHook(AccessTools.EnumeratorMoveNext(AccessTools.Method(typeof(CardGame), "BuildWindow")), typeof(PatchBaseCardGameBuildWindow));
             PatchLoader.SetupILHook(AccessTools.EnumeratorMoveNext(AccessTools.Method(typeof(CardGame), "PullCard")), typeof(PatchBaseCardGamePullCard));
             PatchLoader.SetupILHook(AccessTools.Method(typeof(CardGame), "GetInput"), typeof(PatchBaseCardGameGetInput));
             PatchLoader.SetupILHook(AccessTools.Method(typeof(CardGame), "PlayEnemyCards"), typeof(PatchBaseCardGamePlayEnemyCards));
-            PatchLoader.SetupILHook(AccessTools.Method(typeof(CardGame), "CreateCard"), typeof(PatchBaseCardGameCreateCard));*/
+            PatchLoader.SetupILHook(AccessTools.Method(typeof(CardGame), "CreateCard"), typeof(PatchBaseCardGameCreateCard));
 
             //BattleControl
             PatchLoader.SetupILHook(AccessTools.EnumeratorMoveNext(AccessTools.Method(typeof(BattleControl), "GameOver")), typeof(PatchBaseBattleControlGameover));

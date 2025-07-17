@@ -615,7 +615,12 @@ namespace BFPlus.Extensions
             var randomTarget = targets[UnityEngine.Random.Range(0, targets.Count)];
             MainManager.PlaySound("Flame");
             MainManager.PlayParticle("Fire", randomTarget.battleentity.transform.position + new Vector3(0, randomTarget.battleentity.height), 1f);
-            MainManager.SetCondition(MainManager.BattleCondition.Fire, ref randomTarget, 3);
+            int[] limit = { (int)MainManager.Enemies.KeyL, (int)MainManager.Enemies.KeyR, (int)MainManager.Enemies.Tablet };
+            
+            if(!limit.Any(l=>l == randomTarget.animid))
+            {
+                MainManager.SetCondition(MainManager.BattleCondition.Fire, ref randomTarget, 3);
+            }
             yield return EventControl.halfsec;
         }
 
@@ -826,7 +831,6 @@ namespace BFPlus.Extensions
                 yield return Instance.DoDelProjPlayer();
 
                 battle.UpdateText();
-                MainManager_Ext.adrenalineChecked = false;
                 Instance.usedPebbleToss = false;
                 Instance.twinedFateUsed = false;
                 DarkTeamSnakemouth.RefreshRelay();
@@ -862,6 +866,8 @@ namespace BFPlus.Extensions
                 {
                     var entityExt = Entity_Ext.GetEntity_Ext(MainManager.instance.playerdata[i].battleentity);
                     entityExt.inkWellActive = false;
+                    entityExt.adrenalineUsed = false;
+
                     BattleControl_Ext.Instance.CheckHDWGHConditionAmount(MainManager.instance.playerdata[i], entityExt);
                     if (entityExt.smearchargeActive)
                     {
@@ -2583,13 +2589,6 @@ namespace BFPlus.Extensions
 
             entity.Emoticon(MainManager.Emoticons.None);
             yield return WaitStylish(0f);
-
-            if (actionID == (int)NewSkill.Vitiation)
-            {
-                MainManager.BattleData[] playerdata2 = MainManager.instance.playerdata;
-                int num14 = battle.currentturn;
-                playerdata2[num14].cantmove = playerdata2[num14].cantmove + 1;
-            }
             yield break;
         }
 
@@ -3668,8 +3667,11 @@ namespace BFPlus.Extensions
 
         static bool CheckRecharge(int playerID)
         {
-            if (MainManager.BadgeIsEquipped((int)Medal.Adrenaline, MainManager.instance.playerdata[playerID].trueid) && MainManager.instance.playerdata[playerID].hp <= 4)
+            var entityExt = Entity_Ext.GetEntity_Ext(MainManager.instance.playerdata[playerID].battleentity);
+            if (MainManager.BadgeIsEquipped((int)Medal.Adrenaline, MainManager.instance.playerdata[playerID].trueid) && MainManager.instance.playerdata[playerID].hp <= 4 && !entityExt.adrenalineUsed)
             {
+                entityExt.adrenalineUsed = true;
+                MainManager.battle.StartCoroutine(battle.ItemSpinAnim(entityExt.entity.transform.position + Vector3.up, MainManager.itemsprites[1, (int)Medal.Adrenaline], true));
                 return false;
             }
 

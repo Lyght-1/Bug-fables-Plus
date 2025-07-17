@@ -336,7 +336,7 @@ namespace BFPlus.Patches
                 {
                     CreateIcon(__instance, BattleControl_Ext.Instance.InVengeance && MainManager.BadgeIsEquipped((int)Medal.Vengeance, data.trueid), list, pos, (int)Medal.Vengeance);
                     CreateIcon(__instance, MainManager.BadgeIsEquipped((int)Medal.Blightfury) && __instance.animid == 2, list, pos, (int)Medal.Blightfury);
-                    CreateIcon(__instance, data.hp <= 4 && MainManager.BadgeIsEquipped((int)Medal.Adrenaline, data.trueid), list, pos, (int)Medal.Adrenaline);
+                    CreateIcon(__instance, data.hp <= 4 && MainManager.BadgeIsEquipped((int)Medal.Adrenaline, data.trueid) && !entityExt.adrenalineUsed, list, pos, (int)Medal.Adrenaline);
 
                     if (MainManager.HasCondition(MainManager.BattleCondition.Freeze, data) > -1)
                     {
