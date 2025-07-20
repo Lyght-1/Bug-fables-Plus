@@ -640,10 +640,23 @@ namespace BFPlus.Patches
                 BattleControl_Ext.Instance.attackedThisTurn.Add(BattleControl_Ext.Instance.entityAttacking.battleid);
             }
 
+            bool attackerIsInked = attacker != null && !isFireOrPoison && MainManager.HasCondition(MainManager.BattleCondition.Inked, attacker.Value) > -1;
             //Smearcharge check
-            if(BattleControl_Ext.Instance.targetIsPlayer && attacker != null  && !isFireOrPoison && MainManager.HasCondition(MainManager.BattleCondition.Inked, attacker.Value) > -1 && MainManager.BadgeIsEquipped((int)Medal.Smearcharge, target.trueid)) 
+            if (BattleControl_Ext.Instance.targetIsPlayer && attackerIsInked && MainManager.BadgeIsEquipped((int)Medal.Smearcharge, target.trueid)) 
             {
                 entityExt.smearchargeActive = true;
+            }
+
+            if (attackerIsInked && MainManager.BadgeIsEquipped((int)Medal.Inkblot))
+            {
+                var attackerExt = Entity_Ext.GetEntity_Ext(attacker.Value.battleentity);
+
+                if (!attackerExt.inkblotActive)
+                {
+                    Vector3 particlePos = target.battleentity.transform.position + Vector3.up + target.battleentity.height * Vector3.up;
+                    BattleControl_Ext.Instance.ApplyStatus(BattleCondition.Inked, ref target, 2, "WaterSplash2", 0.8f, 1, "InkGet", particlePos, Vector3.one);
+                    attackerExt.inkblotActive = true;
+                }
             }
 
             return true;
@@ -720,7 +733,6 @@ namespace BFPlus.Patches
             if (!isFireOrPoison)
             {
                 //Nerfs Bubble shield by only allowing to block 1 attack.
-
                 int zommothId = battle.EnemyInField((int)MainManager.Enemies.Zommoth);
                 if (MainManager.HasCondition(MainManager.BattleCondition.Shield, target) > -1 && !(MainManager.lastevent == 182 && zommothId != -1 && battle.enemydata[zommothId].data != null & battle.enemydata[zommothId].data.Length >=0 && battle.enemydata[zommothId].data[0] == 0))
                 {

@@ -97,7 +97,8 @@ namespace BFPlus.Extensions
                 case NewCardEffect.InkTribeAmount:
                     if (cardGame.GetCardQuantityTribe((CardGame.Tribe)card.effects[effectIndex, 2], playedId) >= card.effects[effectIndex, 1])
                     {
-                        yield return Instance.DoInk(cardGame, hand[cardIndex], 2);
+                        int inkBuff = 3;
+                        yield return Instance.DoInk(cardGame, hand[cardIndex], inkBuff);
                     }
                     break;
 
@@ -282,7 +283,7 @@ namespace BFPlus.Extensions
             int[] tpCosts = GetTpCosts(cardGame, opponentId);
             if(tpCosts.Length > 0)
             {
-                Instance.atkBuff[opponentId == 0 ? 1 : 0] += Mathf.Clamp(Mathf.CeilToInt(tpCosts.Max() / 2), 1, 99);
+                Instance.atkBuff[opponentId == 0 ? 1 : 0] += Mathf.Clamp(Mathf.CeilToInt((float)tpCosts.Max() / 2), 1, 99);
             }
             yield return cardGame.Shine(owner);
         }
@@ -317,7 +318,7 @@ namespace BFPlus.Extensions
             for(int i=0;i<hand.Length; i++)
             {
                 CardGame.CardData card = cardGame.carddata[hand[i].cardid];
-                if (card.type != CardGame.Type.Attacker)
+                if (card.type != CardGame.Type.Attacker && !hand[i].flipped)
                 {
                     for(int j=0;j<card.effects.GetLength(0);j++)
                     {

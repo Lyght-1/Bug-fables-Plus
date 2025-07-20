@@ -867,6 +867,7 @@ namespace BFPlus.Extensions
                     var entityExt = Entity_Ext.GetEntity_Ext(MainManager.instance.playerdata[i].battleentity);
                     entityExt.inkWellActive = false;
                     entityExt.adrenalineUsed = false;
+                    entityExt.inkblotActive = false;
 
                     BattleControl_Ext.Instance.CheckHDWGHConditionAmount(MainManager.instance.playerdata[i], entityExt);
                     if (entityExt.smearchargeActive)
@@ -886,6 +887,12 @@ namespace BFPlus.Extensions
                 for (int i = 0; i < battle.enemydata.Length; i++)
                 {
                     battle.enemydata[i].cantmove = moves[i];
+
+                    if(battle.enemydata[i].battleentity != null)
+                    {
+                        var entityExt = Entity_Ext.GetEntity_Ext(battle.enemydata[i].battleentity);
+                        entityExt.inkblotActive = false;
+                    }
                 }
 
                 Instance.inEndOfTurnDamage = false;
