@@ -16,7 +16,7 @@ using BFPlus.Extensions;
 using System.Linq;
 namespace BFPlus
 {
-    [BepInPlugin("com.Lyght.BugFables.plugins.BFPlus", "BFPlus", "1.0.4.6")]
+    [BepInPlugin("com.Lyght.BugFables.plugins.BFPlus", "BFPlus", "1.0.4.7")]
     [BepInProcess("Bug Fables.exe")]
     public class BFPlusPlugin : BaseUnityPlugin
     {
@@ -114,6 +114,7 @@ namespace BFPlus
             PatchLoader.SetupILHook(AccessTools.Method(typeof(NPCControl), "OnTriggerEnter"), typeof(PatchBaseNPCControlOnTriggerEnter));
             PatchLoader.SetupILHook(AccessTools.EnumeratorMoveNext(AccessTools.Method(typeof(NPCControl), "CheckItem")), typeof(PatchBaseNPCControlCheckItem));
             PatchLoader.SetupILHook(AccessTools.Method(typeof(NPCControl), "CheckBump"), typeof(PatchBaseNPCControlCheckBump));
+            PatchLoader.SetupILHook(AccessTools.Method(typeof(NPCControl), "CreateDescWindow", new Type[] {typeof(bool)}), typeof(PatchBaseNPCControlCreateDescWindow));
 
             //MapControl
             PatchLoader.SetupILHook(AccessTools.Method(typeof(MapControl), "CreateEntities"), typeof(PatchBaseMapControlCreateEntities));

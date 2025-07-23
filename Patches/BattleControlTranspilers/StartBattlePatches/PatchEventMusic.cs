@@ -69,7 +69,6 @@ namespace BFPlus.Patches.BattleControlTranspilers.StartBattlePatches
                     126, //Mender fights
                     128, //Leafbug ambush fight
                     177, //Help me get it back quest
-                    216, //Fire constructs oven ambush
                     222, //Loose ends quest
                     180, //Zombee/Zombeetle battle upper snek
                     72, //Golden hills Offering optional battle 

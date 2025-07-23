@@ -754,6 +754,7 @@
     <Compile Include="Patches\NPCControlTranspilers\PatchChargeAndAttack.cs" />
     <Compile Include="Patches\NPCControlTranspilers\PatchCheckBump.cs" />
     <Compile Include="Patches\NPCControlTranspilers\PatchCheckItem.cs" />
+    <Compile Include="Patches\NPCControlTranspilers\PatchCreateDescWindow.cs" />
     <Compile Include="Patches\NPCControlTranspilers\PatchDoBehavior.cs" />
     <Compile Include="Patches\NPCControlTranspilers\PatchOnTriggerEnter.cs" />
     <Compile Include="Patches\NPCControlTranspilers\PatchRefreshPlayer.cs" />
@@ -787,6 +788,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

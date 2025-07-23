@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace BFPlus.Patches.MainManagerTranspilers.ShowItemListPatches
 {
@@ -42,6 +43,43 @@ namespace BFPlus.Patches.MainManagerTranspilers.ShowItemListPatches
 
             cursor.GotoNext(i => i.MatchLdsfld(out _));
             cursor.MarkLabel(label2);
+
+            cursor.GotoNext(i => i.MatchLdstr("itemsprite"));
+            var textRef = cursor.Prev.Operand;
+
+            cursor.GotoNext(MoveType.After,i => i.MatchLdcI4(1), i => i.MatchLdsfld(out _), i => i.MatchLdloc(out _));
+            var indexRef = cursor.Prev.Operand;
+
+            cursor.GotoNext(i => i.MatchLdcI4(190));
+
+            cursor.GotoNext(i => i.MatchLdloc(out _));
+            var barRef = cursor.Next.Operand;
+
+            cursor.GotoNext(MoveType.After, i => i.MatchLdcR4(0.6f), i=>i.MatchLdcR4(1f), i=>i.MatchNewobj(out _), i=>i.MatchCallvirt(out _));
+
+            cursor.Emit(OpCodes.Ldloc, indexRef);
+            cursor.Emit(OpCodes.Ldloca, textRef);
+            cursor.Emit(OpCodes.Ldloca, barRef);
+            cursor.Emit(OpCodes.Call, AccessTools.Method(typeof(PatchBadgeShopListSprite), "AddMedalPrice"));
+        }
+
+        static void AddMedalPrice(int index, ref string text, ref SpriteRenderer bar)
+        {
+            bool underground = MainManager.map.mapid == MainManager.Maps.UndergroundBar;
+            int price = Convert.ToInt32(MainManager.badgedata[MainManager.listvar[index], underground ? 7 : 5]);
+
+            if (MainManager.instance.flags[681])
+            {
+                if (!underground)
+                    price = 35; //Mystery price of 35 to every medal
+                else
+                    price = MainManager_Ext.MYSTERY_SHADE_PRICE;
+            }
+
+            MainManager.instance.StartCoroutine(MainManager.SetText("|size,0.6,0.8||single|" + price, 0, null, false, false, new Vector3(underground ? 1.9f : 1.6f, -0.25f), Vector3.zero, Vector3.one, bar.transform, null));
+
+            Vector3 size = underground ? new Vector3(0.45f, 0.5f, 1f) : new Vector3(0.5f, 0.55f, 1f);
+            MainManager.NewUIObject("currencySprite", bar.transform, new Vector2(2.5f, 0f), size, MainManager.guisprites[underground ? 83 : 29], 5);
         }
     }
 

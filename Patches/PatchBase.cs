@@ -265,4 +265,7 @@ namespace BFPlus.Patches.DoActionPatches
     public abstract class PatchBaseCardGamePlayEnemyCards : PatchBase { }
 
     public abstract class PatchBaseCardGameCreateCard : PatchBase { }
+
+    public abstract class PatchBaseNPCControlCreateDescWindow : PatchBase { }
+
 }

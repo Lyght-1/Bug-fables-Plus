@@ -452,6 +452,7 @@ namespace BFPlus.Extensions
         static MainManager_Ext instance;
         public SavedRenderSettings savedRenderSettings;
         public static int oldOutline = -1;
+        public const int MYSTERY_SHADE_PRICE = 3;
         public static MainManager_Ext Instance
         {
             get
