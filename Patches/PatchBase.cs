@@ -294,4 +294,5 @@ namespace BFPlus.Patches.DoActionPatches
 
     public abstract class PatchBaseBattleControlSwitchPos : PatchBase { }
     public abstract class PatchBaseBattleControlSwitchParty : PatchBase { }
+    public abstract class PatchBaseBattleControlDoCommand : PatchBase { }
 }

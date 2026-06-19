@@ -49,12 +49,12 @@ namespace BFPlus.Extensions.BattleStuff.Skills
 
             public virtual void Update()
             {
-                sprite.transform.position += vel;
+                sprite.transform.position += vel * 60 * Time.deltaTime;
 
                 SetScale();
 
                 if (life > 0)
-                    life -= 1 / lifetime;
+                    life -= 60f * Time.deltaTime / lifetime;
                 else
                     Destroy(sprite.gameObject);
             }
@@ -74,7 +74,7 @@ namespace BFPlus.Extensions.BattleStuff.Skills
         public static bool targetAlive;
         public static Color surgeColor;
         public static Color avgSurgeColor;
-        public static List<SurgeParticle> surgeParticles;
+        public static List<SurgeParticle> surgeParticles = new List<SurgeParticle>();
         public static float surgePower;
         public static int generateParticles = -1;
         public static float particleCounter;
@@ -87,7 +87,6 @@ namespace BFPlus.Extensions.BattleStuff.Skills
             target = MainManager.instance.playerdata[battle.target].battleentity;
             targetAlive = MainManager.instance.playerdata[target.battleid].hp > 0;
             targetTrueID = MainManager.instance.playerdata[target.battleid].trueid;
-            surgeParticles = new List<SurgeParticle>();
 
             Vector3 startPos = user.transform.position;
             Vector3 targetPos = target.transform.position;
@@ -130,7 +129,7 @@ namespace BFPlus.Extensions.BattleStuff.Skills
             target.flip = true;
             yield return new WaitUntil(() => generateParticles == 0);
 
-            surgeParticles = null;
+            surgeParticles.Clear();
         }
         static IEnumerator PrepareToSurge(Vector3 viStandPos)
         {
@@ -377,8 +376,10 @@ namespace BFPlus.Extensions.BattleStuff.Skills
             col2.a = 1f;
             avgSurgeColor = Color.Lerp(col1, col2, 0.5f);
 
-            while (generateParticles == 1 || surgeParticles.Count > 0)
+            while (true)
             {
+                if (generateParticles == -1 && surgeParticles.Count == 0)
+                    yield break;
                 surgeColor = Color.Lerp(col1, col2, Mathf.InverseLerp(-1, 1, Mathf.Sin(Mathf.PI * Time.time)));
                 for (int p = surgeParticles.Count - 1; p >= 0; p--)
                 {

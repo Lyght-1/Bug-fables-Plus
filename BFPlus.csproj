@@ -673,6 +673,7 @@
     <Compile Include="Patches\BattleControlTranspilers\GetChoiceInput\PatchStatusInfoKey.cs" />
     <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlAddNewEnemy.cs" />
     <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlCheckEvent.cs" />
+    <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlDoCommand.cs" />
     <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlGameOver.cs" />
     <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlInvulnerable.cs" />
     <Compile Include="Patches\BattleControlTranspilers\PatchBattleControlRelay.cs" />

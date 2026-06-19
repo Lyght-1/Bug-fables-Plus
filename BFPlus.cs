@@ -143,6 +143,7 @@ namespace BFPlus
             PatchLoader.SetupILHook(AccessTools.Method(typeof(GlowTrigger), "LateUpdate"), typeof(PatchBaseGlowTriggerLateUpdate));
 
             //BattleControl
+            PatchLoader.SetupILHook(AccessTools.EnumeratorMoveNext(AccessTools.Method(typeof(BattleControl), "DoCommand")), typeof(PatchBaseBattleControlDoCommand));
             PatchLoader.SetupILHook(AccessTools.EnumeratorMoveNext(AccessTools.Method(typeof(BattleControl), "SwitchParty")), typeof(PatchBaseBattleControlSwitchParty));
             PatchLoader.SetupILHook(AccessTools.EnumeratorMoveNext(AccessTools.Method(typeof(BattleControl), "SwitchPos")), typeof(PatchBaseBattleControlSwitchPos));
             PatchLoader.SetupILHook(AccessTools.Method(typeof(BattleControl), "PlayerTurn"), typeof(PatchBasePlayerTurn));
